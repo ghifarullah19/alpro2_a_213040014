@@ -71,6 +71,7 @@ public class ArrNasabah {
 
 	// Buat Prosedur LOGIN
 	int Login() {
+	    System.out.println("LOGIN");
 		int ulang = 1;
 		int ix;
 		do {
@@ -106,8 +107,14 @@ public class ArrNasabah {
 	void TarikTunai(int i) {
 		System.out.print("Masukan besar penarikan: ");
 		float besar = sc.nextFloat();
-		a[i].saldo -= besar;
-		System.out.println("Tarik tunai berhasil sebesar: Rp." + besar);
+		if (a[i].saldo == 0 ) {
+		  System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda Rp.0");
+		} else if (a[i].saldo <= besar){
+		  System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda kurang/berada di limit");
+		} else {
+		  a[i].saldo -= besar;
+	      System.out.println("Tarik tunai berhasil sebesar: Rp." + besar); 
+		}
 	}
 
 	void SetorTunai(int i) {
@@ -119,6 +126,19 @@ public class ArrNasabah {
 
 	void CekSaldo(int i) {
 		System.out.println("Saldo anda: Rp." + a[i].saldo);
+	}
+	
+	void MenuKembali(String s, String fungsi, int y) {
+        while (!(s.equals("Ya"))) {
+          if (fungsi.equals("cs"))
+            CekSaldo(y);
+          else if (fungsi.equals("tu"))
+            TarikTunai(y);
+          else if (fungsi.equals("st"))
+            SetorTunai(y);
+          System.out.print("Kembali (Ya/Tidak): ");
+          s = sc.next();
+        }
 	}
 
 	public static void main(String[] args) {
@@ -181,21 +201,34 @@ public class ArrNasabah {
 		int y = A.Login();
 		if (y != -1) {
 			System.out.println("Anda berhasil login");
-			boolean login = true;
+			boolean login = true; String kembali = ""; String fungsi = "";
 			while (login == true) {
-				System.out.println("Menu:" + "\n1. Cek Saldo" + "\n2. Tarik Tunai" + "\n3. Setor Tunai" + "\n0. Keluar");
+				System.out.println("Menu: \n1. Cek Saldo \n2. Tarik Tunai \n3. Setor Tunai \n0. Keluar");
 				int menu = sc.nextInt();
 				switch (menu) {
 					case 1:
 						A.CekSaldo(y);
+						System.out.print("Kembali (Ya/Tidak): ");
+						kembali = sc.next();
+						fungsi = "cs";
+						A.MenuKembali(kembali, fungsi, y);
 						break;
 					case 2:
 						A.TarikTunai(y);
-						break;
+						System.out.print("Kembali (Ya/Tidak): ");
+                        kembali = sc.next();
+                        fungsi = "tu";
+                        A.MenuKembali(kembali, fungsi, y);
+                        break;
 					case 3:
 						A.SetorTunai(y);
-						break;
+						System.out.print("Kembali (Ya/Tidak): ");
+                        kembali = sc.next();
+                        fungsi = "st";
+                        A.MenuKembali(kembali, fungsi, y);
+                        break;
 					case 0:
+					    System.out.println("Anda telah keluar");
 						login = false;
 						break;
 					default:
