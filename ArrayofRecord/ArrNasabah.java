@@ -72,7 +72,7 @@ public class ArrNasabah {
 	// Buat Prosedur LOGIN
 	int Login() {
 	    System.out.println("LOGIN");
-		int ulang = 1;
+		int ulang = 0;
 		int ix;
 		do {
 			System.out.print("Masukan norek: ");
@@ -85,7 +85,7 @@ public class ArrNasabah {
 					ix = i;
 				}
 			}
-			ulang -= 1;
+			ulang += 1;
 		} while (ix == -1 && ulang < 3);
 		return ix;
 	}
