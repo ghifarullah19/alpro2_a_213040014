@@ -7,7 +7,7 @@ public class ArrNasabah {
 	Nasabah[] a = new Nasabah[N];
 	Scanner sc = new Scanner(System.in);
 
-	// Peretemuan 2 = Prosedur inisialisasi array
+	// Pertemuan 2 = Prosedur inisialisasi array
 	void InitArray() {
 		for (int i = 0; i < N; i++) {
 			Nasabah R = new Nasabah();
@@ -18,7 +18,7 @@ public class ArrNasabah {
 		}
 	}
 
-	// Peretemuan 2 = Prosedur isi array
+	// Pertemuan 2 = Prosedur isi array
 	void IsiArray() {
 		for (int i = 0; i < N; i++) {
 			System.out.println("---Elemen " + (i + 1));
@@ -26,7 +26,7 @@ public class ArrNasabah {
 		}
 	}
 
-	// Peretemuan 2 = Prosedur tampil array
+	// Pertemuan = Prosedur tampil array
 	void TampilArray() {
 		for (int i = 0; i < N; i++) {
 			a[i].TulisNasabah();
@@ -34,7 +34,7 @@ public class ArrNasabah {
 		System.out.println();
 	}
 
-	// Peretemuan 3 = Fungsi mendapatkan record tertentu dari input
+	// Pertemuan 3 = Fungsi mendapatkan record tertentu dari input
 	Nasabah getElement(int i) {
 		Nasabah R = new Nasabah();
 		System.out.println("===Mengambil Data===");
@@ -69,63 +69,63 @@ public class ArrNasabah {
 	
 	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
 	int MencariNOREK1(String x) {
-      int i = 0;
-      while (i < N-1 && !(a[i].norek.equals(x))) {
-        i++;
-      }
+        int i = 0;
+        while (i < N-1 && !(a[i].norek.equals(x))) {
+          i++;
+        }
       
-      if (a[i].norek.equals(x)) {
-        return i;
-      } else {
-        return -1;
-      }
-   }
+        if (a[i].norek.equals(x)) {
+          return i;
+        } else {
+          return -1;
+        }
+    }
     
 	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
     int MencariNOREK2(String x) {
-      int ix = -1;
-      int i = 0;
-      while (i < N-1 && !(a[i].norek.equals(x))) {
-        i++;
-      }
+        int ix = -1;
+        int i = 0;
+        while (i < N-1 && !(a[i].norek.equals(x))) {
+          i++;
+        }
       
-      if (a[i].norek.equals(x)) {
-        ix = i;
-      } else {
-        ix = -1;
-      }
-      return ix;
-   }
+        if (a[i].norek.equals(x)) {
+          ix = i;
+        } else {
+          ix = -1;
+        }
+        return ix;
+    }
     
- // Pertemuan 6 = Menerapkan Pencarian Sekuensial
+    // Pertemuan 6 = Menerapkan Pencarian Sekuensial
     boolean MencariNOREK3(String x) {
-      int i = 0;
-      while (i < N-1 && !(a[i].norek.equals(x))) {
-        i++;
-      }
+        int i = 0;
+        while (i < N-1 && !(a[i].norek.equals(x))) {
+          i++;
+        }
       
-      if (a[i].norek.equals(x)) {
-        return true;
-      } else {
-        return false;
-      }
-   }
+        if (a[i].norek.equals(x)) {
+          return true;
+        } else {
+          return false;
+        }
+    }
     
- // Pertemuan 6 = Menerapkan Pencarian Sekuensial
+    // Pertemuan 6 = Menerapkan Pencarian Sekuensial
     boolean MencariNOREK4(String x) {
-      int i = 0;
-      boolean ketemu = false;
-      while (i < N-1 && !(a[i].norek.equals(x))) {
-        i++;
-      }
+        int i = 0;
+        boolean ketemu = false;
+        while (i < N-1 && !(a[i].norek.equals(x))) {
+          i++;
+        }
       
-      if (a[i].norek.equals(x)) {
-        ketemu = true;
-      } else {
-        ketemu = false;
-      }
-      return ketemu;
-   }
+        if (a[i].norek.equals(x)) {
+          ketemu = true;
+        } else {
+          ketemu = false;
+        }
+        return ketemu;
+    }
 
 	// Pertemuan 5 = Buat Prosedur LOGIN
 	int Login() {
@@ -241,7 +241,7 @@ public class ArrNasabah {
 		  U = A.getElement(k);
 		  U.TulisNasabah();
 		} else {
-		System.out.println("Nilai tidak ditemukan");
+		  System.out.println("Nilai tidak ditemukan");
 		}
 
 		// Pertemuan 3

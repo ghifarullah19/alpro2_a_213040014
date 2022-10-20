@@ -73,63 +73,63 @@ public class ArrMahasiswa2 {
 	
 	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
 	int MencariNRP1(String x) {
-      int i = 0;
-      while (i < N-1 && !(a[i].nrp.equals(x))) {
-        i++;
-      }
+        int i = 0;
+        while (i < N-1 && !(a[i].nrp.equals(x))) {
+          i++;
+        }
       
-      if (a[i].nrp.equals(x)) {
-        return i;
-      } else {
-        return -1;
-      }
-   }
+        if (a[i].nrp.equals(x)) {
+          return i;
+        } else {
+          return -1;
+        }
+     }
 	
 	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
 	int MencariNRP2(String x) {
-	  int ix = -1;
-      int i = 0;
-      while (i < N-1 && !(a[i].nrp.equals(x))) {
-        i++;
-      }
-      
-      if (a[i].nrp.equals(x)) {
-        ix = i;
-      } else {
-        ix = -1;
-      }
-      return ix;
-   }
+	    int ix = -1;
+        int i = 0;
+        while (i < N-1 && !(a[i].nrp.equals(x))) {
+          i++;
+        }
+        
+        if (a[i].nrp.equals(x)) {
+          ix = i;
+        } else {
+          ix = -1;
+        }
+        return ix;
+     }
 	
 	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
 	boolean MencariNRP3(String x) {
-      int i = 0;
-      while (i < N-1 && !(a[i].nrp.equals(x))) {
-        i++;
-      }
-      
-      if (a[i].nrp.equals(x)) {
-        return true;
-      } else {
-        return false;
-      }
-   }
+        int i = 0;
+        while (i < N-1 && !(a[i].nrp.equals(x))) {
+          i++;
+        }
+        
+        if (a[i].nrp.equals(x)) {
+          return true;
+        } else {
+          return false;
+        }
+     }
 	
 	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
 	boolean MencariNRP4(String x) {
-      int i = 0;
-      boolean ketemu = false;
-      while (i < N-1 && !(a[i].nrp.equals(x))) {
-        i++;
-      }
-      
-      if (a[i].nrp.equals(x)) {
-        ketemu = true;
-      } else {
-        ketemu = false;
-      }
-      return ketemu;
-   }
+        int i = 0;
+        boolean ketemu = false;
+        while (i < N-1 && !(a[i].nrp.equals(x))) {
+          i++;
+        }
+        
+        if (a[i].nrp.equals(x)) {
+          ketemu = true;
+        } else {
+          ketemu = false;
+        }
+        return ketemu;
+     }
 	
 	// Pertemuan 5 = Buat Prosedur LOGIN
 	boolean Login(String username, String password) {

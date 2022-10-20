@@ -9,7 +9,7 @@ public class LarikInt3 {
 	
 	Scanner sc = new Scanner(System.in);
 
-	// Peretemuan 2 = Prosedur inisialisasi array
+	// Pertemuan 2 = Prosedur inisialisasi array
 	void InitArray() {
 		System.out.println("Inisialisasi Array");
 		for (int i = 0; i < N; i++) {
@@ -17,7 +17,7 @@ public class LarikInt3 {
 		}
 	}
 	
-	// Peretemuan 2 = Prosedur isi array
+	// Pertemuan 2 = Prosedur isi array
 	void IsiArray() {
 		System.out.println("\nMembaca nilai input");
 		for (int i = 0; i < N; i++) {
@@ -26,7 +26,7 @@ public class LarikInt3 {
 		}
 	}
 	
-	// Peretemuan 2 = Prosedur tampil array
+	// Pertemuan 2 = Prosedur tampil array
 	void TampilArray() {
 		System.out.println("\nTampil Array");
 		for (int i = 0; i < N; i++) {
@@ -72,63 +72,63 @@ public class LarikInt3 {
 		return ix;
 	}
 	
-	// Peretemuan 6 = Menerapkan Pencarian Sekuensial
+	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
 	boolean MencariX2(int x) {
-      int i = 0;
-      while (i < N-1 && a[i] != x) {
-        i++;
-      }
-      
-      if (a[i] == x) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-	
-	// Peretemuan 6 = Menerapkan Pencarian Sekuensial
-	boolean MencariX3(int x) {
-      int i = 0;
-      boolean ketemu = false;
-      while (i < N-1 && ketemu != true) {
-        if (a[i] == x) {
-          ketemu = true;
-        } else {
+        int i = 0;
+        while (i < N-1 && a[i] != x) {
           i++;
         }
+        
+        if (a[i] == x) {
+          return true;
+        } else {
+          return false;
+        }
       }
-      return ketemu;
-    }
 	
-	// Peretemuan 6 = Menerapkan Pencarian Sekuensial
+	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
+	boolean MencariX3(int x) {
+        int i = 0;
+        boolean ketemu = false;
+        while (i < N-1 && ketemu != true) {
+          if (a[i] == x) {
+            ketemu = true;
+          } else {
+            i++;
+          }
+        }
+        return ketemu;
+      }
+  	
+	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
 	int MencariX4(int x) {
-      int i = 0;
-      while (i < N-1 && a[i] != x) {
-        i++;
-      }
-      
-      if (a[i] == x) {
-        return i;
-      } else {
-        return -1;
-      }
-   }
+        int i = 0;
+        while (i < N-1 && a[i] != x) {
+          i++;
+        }
+        
+        if (a[i] == x) {
+          return i;
+        } else {
+          return -1;
+        }
+     }
 	
-	// Peretemuan 6 = Menerapkan Pencarian Sekuensial
+	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
 	int MencariX5(int x) {
-	  int ix = -1;
-      int i = 0;
-      while (i < N-1 && a[i] != x) {
-        i++;
-      }
-      
-      if (a[i] == x) {
-        ix = i;
-      } else {
-        ix = -1;
-      }
-      return ix;
-   }
+  	  int ix = -1;
+        int i = 0;
+        while (i < N-1 && a[i] != x) {
+          i++;
+        }
+        
+        if (a[i] == x) {
+          ix = i;
+        } else {
+          ix = -1;
+        }
+        return ix;
+     }
 	
 	public static void main(String[] args) {
 	    Scanner sc = new Scanner(System.in);
