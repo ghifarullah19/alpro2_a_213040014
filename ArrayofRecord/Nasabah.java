@@ -8,6 +8,7 @@ public class Nasabah {
 	
 	Scanner sc = new Scanner(System.in);
 	
+	// Pertemuan 2 = Prosedur baca nasabah
 	void BacaNasabah() {
 		System.out.println("Isi Data");
 		System.out.print("norek: ");
@@ -20,6 +21,7 @@ public class Nasabah {
 		saldo = sc.nextFloat();
 	}
 	
+	// Pertemuan 2 = Prosedur tulis nasabah
 	void TulisNasabah() {
 		System.out.println("Data " + ": " + norek + ", " + nama + ", " + saldo);
 	}

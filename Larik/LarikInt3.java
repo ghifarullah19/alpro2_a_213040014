@@ -9,6 +9,7 @@ public class LarikInt3 {
 	
 	Scanner sc = new Scanner(System.in);
 
+	// Peretemuan 2 = Prosedur inisialisasi array
 	void InitArray() {
 		System.out.println("Inisialisasi Array");
 		for (int i = 0; i < N; i++) {
@@ -16,6 +17,7 @@ public class LarikInt3 {
 		}
 	}
 	
+	// Peretemuan 2 = Prosedur isi array
 	void IsiArray() {
 		System.out.println("\nMembaca nilai input");
 		for (int i = 0; i < N; i++) {
@@ -24,6 +26,7 @@ public class LarikInt3 {
 		}
 	}
 	
+	// Peretemuan 2 = Prosedur tampil array
 	void TampilArray() {
 		System.out.println("\nTampil Array");
 		for (int i = 0; i < N; i++) {
@@ -31,6 +34,7 @@ public class LarikInt3 {
 		}
 	}
 	
+	// Pertemuan 3 = Prosedur Mencari rata-rata
 	void MencariRataRata() {
 		System.out.println("\nMencari Rata-Rata");
 		double sum = 0;
@@ -42,7 +46,8 @@ public class LarikInt3 {
 		System.out.println("Rata-rata: " + avg);
 	}
 	
-	/*double MencariRataRata(double ukuran) {
+	// Pertemuan 3 = Fungsi Mencari rata-rata
+	double MencariRataRata2(double ukuran) {
 		System.out.println("\nMencari Rata-Rata");
 		double sum = 0;
 		double avg = 0;
@@ -52,8 +57,9 @@ public class LarikInt3 {
 		avg = sum / ukuran;
 		System.out.println("Rata-rata: " + avg);
 		return avg;
-	}*/
+	}
 	
+	// Pertemuan 3 = Fungsi Mencari nilai dalam array
 	int MencariX(int x) {
 		int ix = -1;
 		int i;
@@ -66,18 +72,79 @@ public class LarikInt3 {
 		return ix;
 	}
 	
+	// Peretemuan 6 = Menerapkan Pencarian Sekuensial
+	boolean MencariX2(int x) {
+      int i = 0;
+      while (i < N-1 && a[i] != x) {
+        i++;
+      }
+      
+      if (a[i] == x) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+	
+	// Peretemuan 6 = Menerapkan Pencarian Sekuensial
+	boolean MencariX3(int x) {
+      int i = 0;
+      boolean ketemu = false;
+      while (i < N-1 && ketemu != true) {
+        if (a[i] == x) {
+          ketemu = true;
+        } else {
+          i++;
+        }
+      }
+      return ketemu;
+    }
+	
+	// Peretemuan 6 = Menerapkan Pencarian Sekuensial
+	int MencariX4(int x) {
+      int i = 0;
+      while (i < N-1 && a[i] != x) {
+        i++;
+      }
+      
+      if (a[i] == x) {
+        return i;
+      } else {
+        return -1;
+      }
+   }
+	
+	// Peretemuan 6 = Menerapkan Pencarian Sekuensial
+	int MencariX5(int x) {
+	  int ix = -1;
+      int i = 0;
+      while (i < N-1 && a[i] != x) {
+        i++;
+      }
+      
+      if (a[i] == x) {
+        ix = i;
+      } else {
+        ix = -1;
+      }
+      return ix;
+   }
+	
 	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
 		LarikInt3 B = new LarikInt3();
 		
-		//B.InitArray();
-		//B.TampilArray();
+		// Pertemuan 2
+		B.InitArray();
+		B.TampilArray();
 		B.IsiArray();
 		B.TampilArray();
-		//B.MencariRataRata();
-		//B.a[3] = 5;
-		//B.MencariRataRata(5);\
+		
+		// Pertemuan 3
+		B.MencariRataRata();
+		B.a[3] = 5;
+		B.MencariRataRata2(5);
 		System.out.println("Mencari nilai tertentu dalam array");
-		Scanner sc = new Scanner(System.in);
 		System.out.print("Masukan nilai ");
 		int x = sc.nextInt();
 		int k = B.MencariX(x);
@@ -86,5 +153,32 @@ public class LarikInt3 {
 		} else {
 			System.out.println("Nilai tidak ditemukan");
 		}
+		
+		// Pertemuan 6
+		boolean j = B.MencariX2(x);
+        if (j != false) {
+            System.out.println("Nilai yang dicari ditemukan");
+        } else {
+            System.out.println("Nilai tidak ditemukan");
+        }
+        
+        // Pertemuan 6
+        int ix;
+        int y;
+        for (int i = 0; i < 3; i++) {
+          System.out.print("Masukan nilai ");
+          y = sc.nextInt();
+          ix = B.MencariX4(y);
+          System.out.println(ix);
+        }
+        
+        // Pertemuan 6
+        boolean ketemu;
+        for (int i = 0; i < 3; i++) {
+          System.out.print("Masukan nilai ");
+          y = sc.nextInt();
+          ketemu = B.MencariX2(y);
+          System.out.println(ketemu);
+        }
 	}
 }

@@ -3,10 +3,11 @@ package ArrayofRecord;
 import java.util.Scanner;
 
 public class ArrMahasiswa2 {
-	int N = 2;
+	int N = 5;
 	Mahasiswa [] a = new Mahasiswa[N];
 	Scanner sc = new Scanner(System.in);
 	
+	// Pertemuan 2 = Prosedur inisialisasi array
 	void InitArray() {
 		for (int i = 0; i < N; i++) {
 			Mahasiswa R = new Mahasiswa();
@@ -21,6 +22,7 @@ public class ArrMahasiswa2 {
 		}
 	}
 	
+	// Pertemuan 2 = Prosedur isi array
 	void IsiArray() {
 		for (int i = 0; i < N; i++) {
 			System.out.println("---Elemen " + (i + 1)); 
@@ -28,6 +30,7 @@ public class ArrMahasiswa2 {
 		}
 	}
 	
+	// Pertemuan 2 = Prosedur tampil array
 	void TampilArray() {
 		for (int i = 0; i < N; i++) {
 			a[i].TulisMahasiswa();
@@ -35,13 +38,14 @@ public class ArrMahasiswa2 {
 		System.out.println();
 	}
 	
+	// Pertemuan 3 = Fungsi mendapatkan record tertentu dari input
 	Mahasiswa getElement(int i) {
 		Mahasiswa R = new Mahasiswa();
 		R = a[i];
 		return R;
 	}
 	
-	// Prosedur mengubah record tertentu dari input
+	// Pertemuan 3 = Prosedur mengubah record tertentu dari input
 	void setElement(int i) {
 		System.out.println("\n===Mengubah Data===");
 		a[i].BacaMahasiswa();
@@ -53,6 +57,7 @@ public class ArrMahasiswa2 {
 		return indeks;
 	}
 	
+	// Pertemuan 3 = Fungsi mencari nilai dalam array
 	int MencariX(String input) {
 		int ix = -1;
 		int i;
@@ -66,7 +71,67 @@ public class ArrMahasiswa2 {
 		return ix;
 	}
 	
-	// Buat Prosedur LOGIN
+	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
+	int MencariNRP1(String x) {
+      int i = 0;
+      while (i < N-1 && !(a[i].nrp.equals(x))) {
+        i++;
+      }
+      
+      if (a[i].nrp.equals(x)) {
+        return i;
+      } else {
+        return -1;
+      }
+   }
+	
+	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
+	int MencariNRP2(String x) {
+	  int ix = -1;
+      int i = 0;
+      while (i < N-1 && !(a[i].nrp.equals(x))) {
+        i++;
+      }
+      
+      if (a[i].nrp.equals(x)) {
+        ix = i;
+      } else {
+        ix = -1;
+      }
+      return ix;
+   }
+	
+	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
+	boolean MencariNRP3(String x) {
+      int i = 0;
+      while (i < N-1 && !(a[i].nrp.equals(x))) {
+        i++;
+      }
+      
+      if (a[i].nrp.equals(x)) {
+        return true;
+      } else {
+        return false;
+      }
+   }
+	
+	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
+	boolean MencariNRP4(String x) {
+      int i = 0;
+      boolean ketemu = false;
+      while (i < N-1 && !(a[i].nrp.equals(x))) {
+        i++;
+      }
+      
+      if (a[i].nrp.equals(x)) {
+        ketemu = true;
+      } else {
+        ketemu = false;
+      }
+      return ketemu;
+   }
+	
+	// Pertemuan 5 = Buat Prosedur LOGIN
 	boolean Login(String username, String password) {
 		boolean login = false;
 		for (int i = 0; i < N; i++) {
@@ -81,9 +146,11 @@ public class ArrMahasiswa2 {
 	}
 	
 	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
 		ArrMahasiswa2 A = new ArrMahasiswa2();
 		Mahasiswa T = new Mahasiswa();
 		
+		// Pertemuan 2
 		System.out.println("===Inisialisasi Array===");
 		A.InitArray();
 		System.out.println("===Isi Array===");
@@ -91,6 +158,7 @@ public class ArrMahasiswa2 {
 		System.out.println("===Tampil Array===");
 		A.TampilArray();
 		
+		// Pertemuan 3
 		System.out.println("Mencari nilai tertentu dalam array");
 		System.out.print("Masukan nilai ");
 		String x = A.sc.next();
@@ -103,7 +171,8 @@ public class ArrMahasiswa2 {
 			System.out.println("Nilai tidak ditemukan");
 		}
 		
-		/*System.out.println("===LOGIN===");
+		// Pertemuan 5
+		System.out.println("===LOGIN===");
 		System.out.print("Masukan username: ");
 		String username = A.sc.next();
 		System.out.print("Masukan password: ");
@@ -150,6 +219,25 @@ public class ArrMahasiswa2 {
 			}
 		} else {
 			System.out.println("Username / password salah");
-		}*/
+		}
+		
+		// Pertemuan 6
+		int ix;
+        String nrp;
+        for (int i = 0; i < 3; i++) {
+          System.out.print("Masukan nilai ");
+          nrp = sc.next();
+          ix = A.MencariNRP1(nrp);
+          System.out.println(ix);
+        }
+        
+        // Pertemuan 6
+        boolean ketemu;
+        for (int i = 0; i < 3; i++) {
+          System.out.println("Masukan nilai ");
+          nrp = sc.next();
+          ketemu = A.MencariNRP3(nrp);
+          System.out.println(ketemu);
+        }
 	}
 }

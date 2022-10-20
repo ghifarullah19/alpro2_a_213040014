@@ -8,6 +8,7 @@ public class LarikInt2 {
 	
 	Scanner sc = new Scanner(System.in);
 
+	// Pertemuan 1 = Prosedur inisialisasi array
 	void InitArray() {
 		System.out.println("Inisialisasi Array");
 		for (int i = 0; i < N; i++) {
@@ -15,6 +16,7 @@ public class LarikInt2 {
 		}
 	}
 	
+	// Pertemuan 1 = Prosedur isi array
 	void IsiArray() {
 		System.out.println("\nMembaca nilai input");
 		for (int i = 0; i < N; i++) {
@@ -23,6 +25,7 @@ public class LarikInt2 {
 		}
 	}
 	
+	// Pertemuan 1 = Prosedur tampil array
 	void TampilArray() {
 		System.out.println("\nTampil Array");
 		for (int i = 0; i < N; i++) {
