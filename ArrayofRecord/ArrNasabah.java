@@ -3,7 +3,7 @@ package ArrayofRecord;
 import java.util.Scanner;
 
 public class ArrNasabah {
-	int N = 3;
+	int N = 1;
 	Nasabah[] a = new Nasabah[N];
 	Scanner sc = new Scanner(System.in);
 
@@ -191,7 +191,7 @@ public class ArrNasabah {
 	}
 	
 	void MenuKembali(String s, String fungsi, int y) {
-        while (!(s.equals("Ya"))) {
+        while (!(s.toLowerCase().equals("ya"))) {
           if (fungsi.equals("cs"))
             CekSaldo(y);
           else if (fungsi.equals("tu"))
