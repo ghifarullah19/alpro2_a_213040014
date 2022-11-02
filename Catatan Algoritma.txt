@@ -1,0 +1,200 @@
+Record = sebuah objek yang punya banyak atribut, tipe data setiap atribut boleh berbeda.
+Array = tipe data banyak elemen yang tipe datanya sama dan memiliki indeks agar bisa mengakses elemen tertentu. Tersimpan di memori utama. Bersifat traversal.
+
+Cara pendefinisian:
+Record
+type Mahasiswa = record
+			NRP: string
+			Nama: string
+			IPK: real
+		end
+	A: Mahasiswa
+Cara mengakses data bertipe record:
+	A.NRP
+	A.Nama = "Santi"
+	A = <"001", "Santi", 3.5>
+	input(A.NRP) atau input(A.NRP, A.Nama, A.IPK)
+	output(A.NRP) atau output(A.NRP, A.Nama, A.IPK)
+
+Cara pendefinisian:
+Array
+	const N = 10
+	type LarikInt = array[1...N] of integer
+	A : LarikInt // Boleh, karena LarikInt adalah tipe data
+	B : array[1...N] of string
+	C : B // Tidak bisa, karena B adalah variabel
+Cara mengakses elemen larik:
+	A[i]; i = indeks
+	output(A[i])
+	output(B[i])
+	A[2] = A[4]
+
+Cara pendefinisian:
+Array of Record
+type Mahasiswa = record <
+			NRP, Nama: string
+			IPK: real >
+type ArrMahasiswa = array[1...N] of Mahasiswa
+	R : Mahasiswa
+	A : ArrMahasiswa
+Cara mengakses array of record
+	A[i] = R
+	R = A[i]
+	A[i].IPK = 3.5
+	R.NRP = A[i].NRP
+	output(A[i].NRP)
+	input(A[i].Nama)
+
+int MencariNilaiX(int x) {
+	Mencari pada array a elemen yang bernilai X,
+	jika ada/ketemu maka yang dikembalikan adalah 
+	indeks di mana nilai X ditemukan, jika tidak 
+	ada maka kembalikan nilai -1.
+}
+Kamus: ix : integer
+Algoritma: 
+ix = -1
+for (i = 0 to N-1) do
+	if (A[i] == x)
+	then ix = i
+	endif
+endfor
+return(ix)
+
+type:
+	Nasabah = record <
+		norek : string
+		nama : string
+		saldo : real >
+---------------------------------------------------------------------
+0 : <'1', 'a', 3000>
+1 : <'3', 'c', 5000>
+2 : <'6', 'd', 7000>
+Mengubah nama dari Nasabah yang noreknya = '6' menjadi 'Tulus'
+1. Cari norek = '6' -> dapatkan:-kesimpulan norek ada/tidak: ix 
+				-kalau ketemu (ix != -1)
+				-ubah elemen array pada index ke ix
+prosedur ubahNamaElemen(no : string, namaBaru : string) {
+	mengubah nama dari elemen array tertentu yang norek == no
+	menjadi namaBaru.
+}
+Kamus : 
+	K : integer
+Algoritma : 
+	k = MencariX(no)
+	if (k != -1)
+	then 	//ketemu di index k
+		ubahNama(k, namaBaru)
+	else output('Norek', no, 'tidak ada dalam array')
+	endif
+	----
+	void ubahNama(i : integer, name : string) 
+		a[i].nama = name
+-----------
+Pertemuan 6
+
+Record -> kelas
+1. mahasiswa = (npm, nama, ipk)
+2. nasabah = (norek, nama, saldo)
+Array -> kelas = 1. ukuran
+		 2. tipe objek yang digunakan
+3. arrinteger = 
+
+Pencarian
+boolean CariX(input x : integer) {
+mencari pada array A apakah nilai X
+ada pada array, jika ada kembalikan true, jika tidak kembalikan false, 
+pencarian sequential, data tidak terurut}
+Kamus :
+	i : integer
+Algoritma :
+	i = 1
+	while (A[i] != x) and (i < N) do
+		i++
+	endwhile
+	if (A[i] == X) 
+	then return tue
+	else return false
+	endif
+
+Versi lain
+Kamus : i : integer
+	ketemu : boolean
+Algoritma : 
+	i = 1
+	ketemu = false
+	while (not(ketemu)) and (i < N) do
+		if (A[i] == X) 
+		then ketemu = true
+		else i = i + 1
+		endif
+	endwhile
+	return ketemu
+
+-----------
+Pertemuan 7
+Perbaikan algoritma versi Haykal
+Alt 1
+Function SearchX(x : integer) : integer {
+Kamus :
+	i : integer
+Algoritma :
+	i = 0
+	while (A[i] != x) and (i < N-1) do
+		i++
+	endwhile
+	if (A[i] == X) 
+	then return i
+	else return -1
+	endif
+}
+
+Alt 2
+Function SearchX(x : integer) : integer {
+Kamus :
+	i : integer
+Algoritma :
+	i = 0
+	ketemu = false
+	while (ketemu == false) and (i < N) do
+		if (A[i] == X) 
+		then ketemu true
+		else i++
+		endif
+	endwhile
+	if (ketemu == true)
+	then return i
+	else return -1
+	endif
+}
+
+Pencarian Binary Search (Belah Tengah)
+Function BinarySearch(x : integer) : integer 
+{ mencari pada array A berukuran N dengan metoda binary search
+Array A terurut membesar. Nilai yang dikembalikan adalah indeks 
+dimana x ditemukan dan -1 jika tidak ditemukan }
+Kamus : 
+		iawal, iakhir, k : integer, ketemu : boolean
+Algoritma :
+		iawal = 0;, iakhir = N - 1, ketemu = false
+		while (ketemu == false) and (iawal <= iakhir) do
+			k = (iawal + iakhir) div 2
+			if (A[k] == X) then
+				ketemu = true
+			else then 
+				if (A[k] > X) then
+					iakhir = k-1 (geser ke kiri)
+				else then
+					iawal = k+1 (geser ke kanan)
+				endif
+			endif
+		endwhile
+		if (ketemu) then
+			return k
+		else then
+			return -1
+		endif
+PR:
+	1. tambahkan TarikTunai
+	2. membuat tabel tracer binary search (tulis tangan)
+	3. print out binary search

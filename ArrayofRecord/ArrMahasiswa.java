@@ -114,5 +114,7 @@ public class ArrMahasiswa {
 		} else {
 			System.out.println("Nilai tidak ditemukan");
 		}
+		
+		sc.close();
 	}
 }

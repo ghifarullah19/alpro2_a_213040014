@@ -114,6 +114,7 @@ public class LarikInt3 {
         }
      }
 	
+	
 	// Pertemuan 6 = Menerapkan Pencarian Sekuensial
 	int MencariX5(int x) {
   	  int ix = -1;
@@ -129,6 +130,57 @@ public class LarikInt3 {
         }
         return ix;
      }
+
+//	Pertemuan 7
+	int MencariX6(int x) {
+	  int i;
+	  for (i = 0; i < N; i++) {
+	    if (a[i] == x) {
+	      return i;
+	    }
+	  }
+	  return i;
+	}
+	
+//  Pertemuan 7
+	int MencariX7(int x) {
+      int i = 0;
+      while (i < N && a[i] != x) {
+        i++;
+      }
+      if (a[i] == x) {
+        return i;
+      } else {
+        return -1;
+      }
+    }
+	
+	//  Pertemuan 7
+	int BinarySearch(int x) {
+	  int iawal = 0;
+	  int iakhir = N - 1;
+	  boolean ketemu = false;
+	  int k = 0;
+	  
+	  while (ketemu == false && iawal <= iakhir) {
+	    k = (iawal + iakhir) / 2;
+	    if (a[k] == x) {
+	      ketemu = true;
+	    } else { 
+	      if (a[k] > x) {
+	        iakhir = k - 1;
+	      } else {
+	        iawal = k + 1;
+	      }
+	    }
+	  }
+	  
+	  if (ketemu) {
+	    return k;
+	  } else {
+	    return -1;	    
+	  }
+	}
 	
 	public static void main(String[] args) {
 	    Scanner sc = new Scanner(System.in);
@@ -141,44 +193,46 @@ public class LarikInt3 {
 		B.TampilArray();
 		
 		// Pertemuan 3
-		B.MencariRataRata();
-		B.a[3] = 5;
-		B.MencariRataRata2(5);
-		System.out.println("Mencari nilai tertentu dalam array");
-		System.out.print("Masukan nilai ");
-		int x = sc.nextInt();
-		int k = B.MencariX(x);
-		if (k != -1) {
-			System.out.println("Nilai yang dicari yaitu " + x + " ada di indeks " + k);
-		} else {
-			System.out.println("Nilai tidak ditemukan");
-		}
-		
-		// Pertemuan 6
-		boolean j = B.MencariX2(x);
-        if (j != false) {
-            System.out.println("Nilai yang dicari ditemukan");
-        } else {
-            System.out.println("Nilai tidak ditemukan");
-        }
-        
-        // Pertemuan 6
+//		B.MencariRataRata();
+//		B.a[3] = 5;
+//		B.MencariRataRata2(5);
+//		System.out.println("Mencari nilai tertentu dalam array");
+//		System.out.print("Masukan nilai ");
+//		int x = sc.nextInt();
+//		int k = B.MencariX(x);
+//		if (k != -1) {
+//			System.out.println("Nilai yang dicari yaitu " + x + " ada di indeks " + k);
+//		} else {
+//			System.out.println("Nilai tidak ditemukan");
+//		}
+//		
+//		// Pertemuan 6
+//		boolean j = B.MencariX2(x);
+//        if (j != false) {
+//            System.out.println("Nilai yang dicari ditemukan");
+//        } else {
+//            System.out.println("Nilai tidak ditemukan");
+//        }
+//        
+//        // Pertemuan 6
         int ix;
         int y;
         for (int i = 0; i < 3; i++) {
           System.out.print("Masukan nilai ");
           y = sc.nextInt();
-          ix = B.MencariX4(y);
+          ix = B.BinarySearch(y);
           System.out.println(ix);
         }
+//        
+//        // Pertemuan 6
+//        boolean ketemu;
+//        for (int i = 0; i < 3; i++) {
+//          System.out.print("Masukan nilai ");
+//          y = sc.nextInt();
+//          ketemu = B.MencariX2(y);
+//          System.out.println(ketemu);
+//        }
         
-        // Pertemuan 6
-        boolean ketemu;
-        for (int i = 0; i < 3; i++) {
-          System.out.print("Masukan nilai ");
-          y = sc.nextInt();
-          ketemu = B.MencariX2(y);
-          System.out.println(ketemu);
-        }
+        sc.close();
 	}
 }

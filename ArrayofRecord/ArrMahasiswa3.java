@@ -59,7 +59,6 @@ public class ArrMahasiswa3 {
 	public static void main(String[] args) {
 		ArrMahasiswa3 A = new ArrMahasiswa3();
 		Mahasiswa T = new Mahasiswa();
-		Mahasiswa U = new Mahasiswa();
 		
 		System.out.println("===Inisialisasi Array===");
 		A.InitArray();
@@ -68,12 +67,12 @@ public class ArrMahasiswa3 {
 		System.out.println("===Tampil Array===");
 		A.TampilArray();
 		
-//		System.out.println("===Manipulasi Array===");
-//		System.out.println("1. Mengambil Data");
-//		int inputAmbil = A.InputIndeks();
-//		T = A.getElement(inputAmbil);
-//		T.TulisMahasiswa();
-		//A.getElement(inputAmbil).TulisMahasiswa();
+		System.out.println("===Manipulasi Array===");
+		System.out.println("1. Mengambil Data");
+		int inputAmbil = A.InputIndeks();
+		T = A.getElement(inputAmbil);
+		T.TulisMahasiswa();
+		A.getElement(inputAmbil).TulisMahasiswa();
 	
 		System.out.println("2. Mengubah Data");
 		int inputUbah = A.sc.nextInt();

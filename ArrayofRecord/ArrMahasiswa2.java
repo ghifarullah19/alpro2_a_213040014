@@ -239,5 +239,7 @@ public class ArrMahasiswa2 {
           ketemu = A.MencariNRP3(nrp);
           System.out.println(ketemu);
         }
+        
+        sc.close();
 	}
 }
