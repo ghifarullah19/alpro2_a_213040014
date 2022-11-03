@@ -193,28 +193,28 @@ public class LarikInt3 {
 		B.TampilArray();
 		
 		// Pertemuan 3
-//		B.MencariRataRata();
-//		B.a[3] = 5;
-//		B.MencariRataRata2(5);
-//		System.out.println("Mencari nilai tertentu dalam array");
-//		System.out.print("Masukan nilai ");
-//		int x = sc.nextInt();
-//		int k = B.MencariX(x);
-//		if (k != -1) {
-//			System.out.println("Nilai yang dicari yaitu " + x + " ada di indeks " + k);
-//		} else {
-//			System.out.println("Nilai tidak ditemukan");
-//		}
-//		
-//		// Pertemuan 6
-//		boolean j = B.MencariX2(x);
-//        if (j != false) {
-//            System.out.println("Nilai yang dicari ditemukan");
-//        } else {
-//            System.out.println("Nilai tidak ditemukan");
-//        }
-//        
-//        // Pertemuan 6
+		B.MencariRataRata();
+		B.a[3] = 5;
+		B.MencariRataRata2(5);
+		System.out.println("Mencari nilai tertentu dalam array");
+		System.out.print("Masukan nilai ");
+		int x = sc.nextInt();
+		int k = B.MencariX(x);
+		if (k != -1) {
+			System.out.println("Nilai yang dicari yaitu " + x + " ada di indeks " + k);
+		} else {
+			System.out.println("Nilai tidak ditemukan");
+		}
+		
+		// Pertemuan 6
+		boolean j = B.MencariX2(x);
+        if (j != false) {
+            System.out.println("Nilai yang dicari ditemukan");
+        } else {
+            System.out.println("Nilai tidak ditemukan");
+        }
+        
+        // Pertemuan 6
         int ix;
         int y;
         for (int i = 0; i < 3; i++) {
@@ -223,15 +223,15 @@ public class LarikInt3 {
           ix = B.BinarySearch(y);
           System.out.println(ix);
         }
-//        
-//        // Pertemuan 6
-//        boolean ketemu;
-//        for (int i = 0; i < 3; i++) {
-//          System.out.print("Masukan nilai ");
-//          y = sc.nextInt();
-//          ketemu = B.MencariX2(y);
-//          System.out.println(ketemu);
-//        }
+        
+        // Pertemuan 6
+        boolean ketemu;
+        for (int i = 0; i < 3; i++) {
+          System.out.print("Masukan nilai ");
+          y = sc.nextInt();
+          ketemu = B.MencariX2(y);
+          System.out.println(ketemu);
+        }
         
         sc.close();
 	}

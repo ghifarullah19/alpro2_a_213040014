@@ -198,3 +198,39 @@ PR:
 	1. tambahkan TarikTunai
 	2. membuat tabel tracer binary search (tulis tangan)
 	3. print out binary search
+	
+Function BinarySearch(x : integer) : integer 
+{ mencari pada array A berukuran N dengan metoda binary search
+Array A terurut mengecil. Nilai yang dikembalikan adalah indeks 
+dimana x ditemukan dan -1 jika tidak ditemukan }
+Kamus : 
+		iawal, iakhir, k : integer, ketemu : boolean
+Algoritma :
+		iawal = 0;, iakhir = N - 1, ketemu = false
+		while (ketemu == false) and (iawal <= iakhir) do
+			k = (iawal + iakhir) div 2
+			if (A[k] == X) then
+				ketemu = true
+			else then 
+				if (A[k] < X) then
+					iakhir = k-1 (geser ke kiri)
+				else then
+					iawal = k+1 (geser ke kanan)
+				endif
+			endif
+		endwhile
+		if (ketemu) then
+			return k
+		else then
+			return -1
+		endif
+		
+Function MencariNilaiDiMatriks(x : integer) {
+	mencari pada array A berukuran N x N dengan metode binary search
+	Array A terurut mengecil. Nilai yang dikembalikan adalah indeks
+	Jika tidak ditemukan, kembalikan -1.
+}
+Kamus	: ia, ik, it : integer; ketemu : boolean
+Algoritma	:
+				ia = 0;
+				ik = N - 1; 

@@ -212,41 +212,41 @@ public class ArrNasabah {
 		System.out.println("===Tampil Array===");
 		A.TampilArray();
 
-//		// Pertemuan 3
-//		System.out.println("===Manipulasi Array===");
-//		System.out.println("1. Mengambil Data");
-//		int inputAmbil = A.InputIndeks();
-//		T = A.getElement(inputAmbil);
-//		T.TulisNasabah();
-//		 
-//		System.out.println("2. Mengubah Data");
-//		int inputUbah = A.InputIndeks();
-//		A.setElement(inputUbah);
-//		 
-//		System.out.println("\n===Tampil Array (Diperbarui)===");
-//		A.TampilArray();
-//		
-//		// Pertemuan 3
-//		System.out.println("Mencari nilai tertentu dalam array");
-//		System.out.print("Masukan nilai: ");
-//		String x = sc.next();
-//		int k = A.MencariX(x);
-//		if (k != -1) {
-//		  System.out.println("Nilai yang dicari yaitu " + x + " ada di indeks " + k);
-//		  U = A.getElement(k);
-//		  U.TulisNasabah();
-//		} else {
-//		  System.out.println("Nilai tidak ditemukan");
-//		}
-//
-//		// Pertemuan 3
-//		System.out.println("Mengubah Nama");
-//		System.out.print("Masukan norek: ");
-//		String norekS = sc.next();
-//		System.out.print("Masukan nama baru: ");
-//		String namaBaru = sc.next();
-//		A.UbahNamaElemen(norekS, namaBaru);
-//		A.TampilArray();
+		// Pertemuan 3
+		System.out.println("===Manipulasi Array===");
+		System.out.println("1. Mengambil Data");
+		int inputAmbil = A.InputIndeks();
+		T = A.getElement(inputAmbil);
+		T.TulisNasabah();
+		 
+		System.out.println("2. Mengubah Data");
+		int inputUbah = A.InputIndeks();
+		A.setElement(inputUbah);
+		 
+		System.out.println("\n===Tampil Array (Diperbarui)===");
+		A.TampilArray();
+		
+		// Pertemuan 3
+		System.out.println("Mencari nilai tertentu dalam array");
+		System.out.print("Masukan nilai: ");
+		String x = sc.next();
+		int k = A.MencariX(x);
+		if (k != -1) {
+		  System.out.println("Nilai yang dicari yaitu " + x + " ada di indeks " + k);
+		  U = A.getElement(k);
+		  U.TulisNasabah();
+		} else {
+		  System.out.println("Nilai tidak ditemukan");
+		}
+
+		// Pertemuan 3
+		System.out.println("Mengubah Nama");
+		System.out.print("Masukan norek: ");
+		String norekS = sc.next();
+		System.out.print("Masukan nama baru: ");
+		String namaBaru = sc.next();
+		A.UbahNamaElemen(norekS, namaBaru);
+		A.TampilArray();
 
 		// Pertemuan 7
 		int y = A.Login();
@@ -275,24 +275,24 @@ public class ArrNasabah {
 			System.out.println("Anda gagal login");
 		}
 		
-//		// Pertemuan 6
-//		int ix;
-//        String norek;
-//        for (int i = 0; i < 3; i++) {
-//          System.out.print("Masukan nilai: ");
-//          norek = sc.next();
-//          ix = A.MencariNOREK1(norek);
-//          System.out.println(ix);
-//        }
-//        
-//        // Pertemuan 6
-//        boolean ketemu;
-//        for (int i = 0; i < 3; i++) {
-//          System.out.println("Masukan nilai: ");
-//          norek = sc.next();
-//          ketemu = A.MencariNOREK3(norek);
-//          System.out.println(ketemu);
-//        }
+		// Pertemuan 6
+		int ix;
+        String norek;
+        for (int i = 0; i < 3; i++) {
+          System.out.print("Masukan nilai: ");
+          norek = sc.next();
+          ix = A.MencariNOREK1(norek);
+          System.out.println(ix);
+        }
+        
+        // Pertemuan 6
+        boolean ketemu;
+        for (int i = 0; i < 3; i++) {
+          System.out.println("Masukan nilai: ");
+          norek = sc.next();
+          ketemu = A.MencariNOREK3(norek);
+          System.out.println(ketemu);
+        }
         
         sc.close();
 	}
