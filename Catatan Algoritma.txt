@@ -109,7 +109,7 @@ Kamus :
 	i : integer
 Algoritma :
 	i = 1
-	while (A[i] != x) and (i < N) do
+	while (A[i] != x) and (i < N-1) do
 		i++
 	endwhile
 	if (A[i] == X) 
@@ -123,7 +123,7 @@ Kamus : i : integer
 Algoritma : 
 	i = 1
 	ketemu = false
-	while (not(ketemu)) and (i < N) do
+	while (not(ketemu)) and (i < N-1) do
 		if (A[i] == X) 
 		then ketemu = true
 		else i = i + 1
@@ -224,13 +224,3 @@ Algoritma :
 		else then
 			return -1
 		endif
-		
-Function MencariNilaiDiMatriks(x : integer) {
-	mencari pada array A berukuran N x N dengan metode binary search
-	Array A terurut mengecil. Nilai yang dikembalikan adalah indeks
-	Jika tidak ditemukan, kembalikan -1.
-}
-Kamus	: ia, ik, it : integer; ketemu : boolean
-Algoritma	:
-				ia = 0;
-				ik = N - 1; 
