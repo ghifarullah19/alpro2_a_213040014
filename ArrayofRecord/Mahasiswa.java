@@ -15,10 +15,10 @@ public class Mahasiswa {
 		nrp = sc.next();
 		System.out.print("Nama: ");
 		nama = sc.next();
-//		System.out.print("Username: ");
-//		username = sc.next();
-//		System.out.print("Password: ");
-//		password = sc.next();
+		System.out.print("Username: ");
+		username = sc.next();
+		System.out.print("Password: ");
+		password = sc.next();
 		System.out.print("IPK: ");
 		IPK = sc.nextFloat();
 	}
