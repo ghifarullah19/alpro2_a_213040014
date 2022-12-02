@@ -17,7 +17,7 @@ public class UTSNomor3B {
             a[i][j] = '+';
           }
         }
-    }
+      }
       
       // Pertemuan 9 = Prosedur tampil matriks
       void IsiMatriks() {

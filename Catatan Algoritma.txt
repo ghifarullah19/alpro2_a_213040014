@@ -224,3 +224,21 @@ Algoritma :
 		else then
 			return -1
 		endif
+		
+Pertemuan 11
+
+C : array[1...N][1...M] of integer
+A : array[1...N][1...M] of integer
+B : array[1...N][1...M] of integer
+
+i : integer
+j : integer
+
+i <- 0
+j <- 0
+
+for i to N
+	for j to M
+		C[i][j] <- A[i][j] + B[i][j]
+	endfor
+endfor
