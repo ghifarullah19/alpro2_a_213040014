@@ -242,3 +242,20 @@ for i to N
 		C[i][j] <- A[i][j] + B[i][j]
 	endfor
 endfor
+
+Pertemuan 12
+Bubble Sort
+{ mengurutkan data array A[1..N] dari besar ke kecil }
+Kamus 
+Algoritma
+
+for tahap = 1 to N -  1 do
+	for i = 1 to N - tahap do
+		if (A[i] < A[i + 1]) 
+		then { pertukaran }
+			temp <- A[i] 
+			A[i] <- A[i + 1]
+			A[i + 1] <- temp
+		endif
+	endfor
+endfor

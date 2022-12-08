@@ -182,6 +182,87 @@ public class LarikInt3 {
 	  }
 	}
 	
+	void BubbleSort() {
+	  int temp;
+	  for (int tahap = 1; tahap < N; tahap++) {
+	    for (int i = 0; i < N - tahap; i++) {
+	      if (a[i] < a[i + 1]) {
+	        temp = a[i];
+	        a[i] = a[i + 1];
+	        a[i + 1] = temp;
+	      }
+	    }
+	  }
+	}
+	
+	void BubbleSortFlag() {
+      int temp;
+      boolean ttukar = true;
+      int i;
+      int tahap = 1;
+      while (tahap < N && ttukar == true) {
+        i = 0;
+        ttukar = false;
+        System.out.println("Tahap ke - " + tahap);
+        while (i < N - tahap) {
+          if (a[i] > a[i + 1]) {
+            temp = a[i];
+            a[i] = a[i + 1];
+            a[i + 1] = temp;
+            ttukar = true;
+            System.out.println("Ada Tukar");
+          }
+          i++;
+        }
+        tahap++;
+      }
+    }
+	
+	
+	void BubbleSortFlag(int kode_urut) { 
+	  // 1 = membesar, 2 = mengecil
+      int temp;
+      boolean ttukar = true;
+      int i;
+      int tahap = 1;
+      while (tahap < N && ttukar == true) {
+        i = 0;
+        ttukar = false;
+        System.out.println("Tahap ke - " + tahap);
+        while (i < N - tahap) {
+          if (kode_urut == 1) {
+            // Membesar
+            if (a[i] > a[i + 1]) {
+              temp = a[i];
+              a[i] = a[i + 1];
+              a[i + 1] = temp;
+              ttukar = true;
+              System.out.println("Ada Tukar");
+            }
+          } else {
+            // Mengecil
+            if (a[i] < a[i + 1]) {
+              temp = a[i];
+              a[i] = a[i + 1];
+              a[i + 1] = temp;
+              ttukar = true;
+              System.out.println("Ada Tukar");
+            }
+          }
+          i++;
+        }
+        tahap++;
+      }
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static void main(String[] args) {
 	    Scanner sc = new Scanner(System.in);
 		LarikInt3 B = new LarikInt3();
@@ -193,46 +274,48 @@ public class LarikInt3 {
 		B.TampilArray();
 		
 		// Pertemuan 3
-		B.MencariRataRata();
-		B.a[3] = 5;
-		B.MencariRataRata2(5);
-		System.out.println("Mencari nilai tertentu dalam array");
-		System.out.print("Masukan nilai ");
-		int x = sc.nextInt();
-		int k = B.MencariX(x);
-		if (k != -1) {
-			System.out.println("Nilai yang dicari yaitu " + x + " ada di indeks " + k);
-		} else {
-			System.out.println("Nilai tidak ditemukan");
-		}
-		
-		// Pertemuan 6
-		boolean j = B.MencariX2(x);
-        if (j != false) {
-            System.out.println("Nilai yang dicari ditemukan");
-        } else {
-            System.out.println("Nilai tidak ditemukan");
-        }
-        
-        // Pertemuan 6
-        int ix;
-        int y;
-        for (int i = 0; i < 3; i++) {
-          System.out.print("Masukan nilai ");
-          y = sc.nextInt();
-          ix = B.BinarySearch(y);
-          System.out.println(ix);
-        }
-        
-        // Pertemuan 6
-        boolean ketemu;
-        for (int i = 0; i < 3; i++) {
-          System.out.print("Masukan nilai ");
-          y = sc.nextInt();
-          ketemu = B.MencariX2(y);
-          System.out.println(ketemu);
-        }
-        
+//		B.MencariRataRata();
+//		B.a[3] = 5;
+//		B.MencariRataRata2(5);
+//		System.out.println("Mencari nilai tertentu dalam array");
+//		System.out.print("Masukan nilai ");
+//		int x = sc.nextInt();
+//		int k = B.MencariX(x);
+//		if (k != -1) {
+//			System.out.println("Nilai yang dicari yaitu " + x + " ada di indeks " + k);
+//		} else {
+//			System.out.println("Nilai tidak ditemukan");
+//		}
+//		
+//		// Pertemuan 6
+//		boolean j = B.MencariX2(x);
+//        if (j != false) {
+//            System.out.println("Nilai yang dicari ditemukan");
+//        } else {
+//            System.out.println("Nilai tidak ditemukan");
+//        }
+//        
+//        // Pertemuan 6
+//        int ix;
+//        int y;
+//        for (int i = 0; i < 3; i++) {
+//          System.out.print("Masukan nilai ");
+//          y = sc.nextInt();
+//          ix = B.BinarySearch(y);
+//          System.out.println(ix);
+//        }
+//        
+//        // Pertemuan 6
+//        boolean ketemu;
+//        for (int i = 0; i < 3; i++) {
+//          System.out.print("Masukan nilai ");
+//          y = sc.nextInt();
+//          ketemu = B.MencariX2(y);
+//          System.out.println(ketemu);
+//        }
+		System.out.println("\nBUBBLE SORT");
+		B.BubbleSortFlag(2);
+		B.TampilArray();
         sc.close();
 	}
 }

@@ -21,7 +21,7 @@ public class ProseduralMatriks {
         }
     }
 
-    private static void sum(int [][] sum, int[][] matriksPertama, int[][] matriksKedua, int m, int n) {
+    static void sum(int [][] sum, int[][] matriksPertama, int[][] matriksKedua, int m, int n) {
         for (int b = 0; b < m; b++) {
             for (int k = 0; k < n; k++) {
                 sum[b][k] = matriksPertama[b][k] + matriksKedua[b][k];
@@ -30,7 +30,7 @@ public class ProseduralMatriks {
         System.out.println("\nPenjumlahan Matriks Matriks");
     }
 
-    private static void subst(int[][] subst, int[][] matriksPertama, int[][] matriksKedua, int m, int n) {
+    static void subst(int[][] subst, int[][] matriksPertama, int[][] matriksKedua, int m, int n) {
         for (int b = 0; b < m; b++) {
             for (int k = 0; k < n; k++) {
                 subst[b][k] = matriksPertama[b][k] - matriksKedua[b][k];

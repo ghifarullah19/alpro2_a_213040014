@@ -2,7 +2,7 @@ package Matriks;
 
 import java.util.Scanner;
 
-public class UTSNomor3B {
+public class MatriksChar {
 
       int N = 5; int M = 5;
       char [][] a = new char[N][M];
@@ -44,7 +44,7 @@ public class UTSNomor3B {
       
         
       public static void main(String[] args) {
-          UTSNomor3B B = new UTSNomor3B();
+          MatriksChar B = new MatriksChar();
           
           // Pertemuan 9
           B.InitMatriks();
