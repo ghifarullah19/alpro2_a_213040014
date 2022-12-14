@@ -183,6 +183,7 @@ public class LarikInt3 {
 	}
 	
 	void BubbleSort() {
+	  System.out.print("\n====Bubble Sort====");
 	  int temp;
 	  for (int tahap = 1; tahap < N; tahap++) {
 	    for (int i = 0; i < N - tahap; i++) {
@@ -196,6 +197,7 @@ public class LarikInt3 {
 	}
 	
 	void BubbleSortFlag() {
+	  System.out.print("\n====Bubble Sort dengan Flag====");
       int temp;
       boolean ttukar = true;
       int i;
@@ -219,7 +221,8 @@ public class LarikInt3 {
     }
 	
 	
-	void BubbleSortFlag(int kode_urut) { 
+	void BubbleSortFlag(int kode_urut) {
+	  System.out.print("\n====Bubble Sort dengan Flag dan Parameter====");
 	  // 1 = membesar, 2 = mengecil
       int temp;
       boolean ttukar = true;
@@ -228,7 +231,7 @@ public class LarikInt3 {
       while (tahap < N && ttukar == true) {
         i = 0;
         ttukar = false;
-        System.out.println("Tahap ke - " + tahap);
+        System.out.println("\nTahap ke - " + tahap);
         while (i < N - tahap) {
           if (kode_urut == 1) {
             // Membesar
@@ -255,13 +258,40 @@ public class LarikInt3 {
       }
     }
 	
+	// Maximum/Minimum Sort
+	void MaxMinSort() {
+	    System.out.print("\n====Max/Min Sort====");
+		int temp;
+		int imax;
+		int i;
+		for (int tahap = 0; tahap < N; tahap++) {
+			imax = 0;
+			for (i = 1; i < N - tahap; i++) {
+				if (a[imax] > a[i]) {
+					imax = i;
+				}
+			}
+			temp = a[imax];
+			a[imax] = a[N - tahap - 1];
+			a[N - tahap - 1] = temp;
+		}
+	}
 	
-	
-	
-	
-	
-	
-	
+	// Insertion Sort
+	void InsertionSort() {
+	    System.out.print("\n====Insertion Sort====");
+	    int i, key, j;
+	    for (i = 1; i < N; i++) {
+	        key = a[i];
+	        j = i - 1;
+	        
+	        while (j >= 0 && a[j] < key) {
+	            a[j + 1] = a[j];
+	            j = j - 1;
+	        }
+	        a[j + 1] = key;
+	    }
+	}
 	
 	public static void main(String[] args) {
 	    Scanner sc = new Scanner(System.in);
@@ -313,8 +343,14 @@ public class LarikInt3 {
 //          ketemu = B.MencariX2(y);
 //          System.out.println(ketemu);
 //        }
-		System.out.println("\nBUBBLE SORT");
+		
 		B.BubbleSortFlag(2);
+		B.TampilArray();
+		
+		B.MaxMinSort();
+		B.TampilArray();
+		
+		B.InsertionSort();
 		B.TampilArray();
         sc.close();
 	}

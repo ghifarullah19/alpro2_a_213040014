@@ -259,3 +259,21 @@ for tahap = 1 to N -  1 do
 		endif
 	endfor
 endfor
+
+Max/Min Sort
+{ mengurutkan data array A[1..N] dari besar ke kecil }
+Kamus 
+Algoritma
+
+for tahap = 1 to N - 1 do
+	imax = 1
+	for i = 2 to N - tahap do
+		if (A[imax] > A[i]) 
+		then imax = i
+		endif
+	endfor
+	{ pertukaran }
+	temp <- A[imax] 
+	A[imax] <- A[N - tahap - 1]
+	A[N - tahap - 1] <- temp
+endfor
