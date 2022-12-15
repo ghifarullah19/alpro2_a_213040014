@@ -277,3 +277,27 @@ for tahap = 1 to N - 1 do
 	A[imax] <- A[N - tahap - 1]
 	A[N - tahap - 1] <- temp
 endfor
+
+Pertemuan 13
+Arsip (File)
+Struktur penyimpanan data 
+di memori sekunder yang bersifat 
+permanen (bisa diakses kembali
+walau sudah keluar dari program)
+
+Cara deklarasi
+Primitif (fungsi-fungsi dasar untuk
+pengoperasian arsip) -> 4/5 fungsi dasar
+1. Open -> membuka arsip untuk siap dibaca/ditulis
+2. Fread
+3. Fwrite
+4. Close
+5. EOF (End Of File)
+
+prosedur Open(input nama arsip : tope arsip, input kode : integer) 
+{ Membuka arsip untuk siap dibaca/ditulis. Kode = 1 untuk dibuka, 
+Kode = 2 untuk pembacaan.}
+
+Open(Mhs, 1)
+Open(Bil, 2)
+
