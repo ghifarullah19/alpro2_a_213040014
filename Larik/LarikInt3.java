@@ -280,16 +280,16 @@ public class LarikInt3 {
 	// Insertion Sort
 	void InsertionSort() {
 	    System.out.print("\n====Insertion Sort====");
-	    int i, key, j;
+	    int i, temp, j;
 	    for (i = 1; i < N; i++) {
-	        key = a[i];
+	        temp = a[i];
 	        j = i - 1;
 	        
-	        while (j >= 0 && a[j] < key) {
+	        while (j >= 0 && a[j] < temp) {
 	            a[j + 1] = a[j];
 	            j = j - 1;
 	        }
-	        a[j + 1] = key;
+	        a[j + 1] = temp;
 	    }
 	}
 	
