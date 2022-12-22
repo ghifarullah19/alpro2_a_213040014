@@ -10,10 +10,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
-public class MainFile {
+public class MainFile2 {
     Scanner sc = new Scanner(System.in);
 
-    public void SaveToFile() { // menulis ke file
+    public void SaveToFile(String nf) { // menulis ke file
 		Nasabah R= new Nasabah();
 		float Saldoku=0;
 		String No="", Namaku="";
@@ -23,7 +23,7 @@ public class MainFile {
 		try {  
 			// 1. buka file untuk ditulis
 			out=new ObjectOutputStream(new FileOutputStream
-				("D:\\"+ "Nasabah.dat"));// nama direktori+file
+				(nf));// nama direktori+file
 			BufferedReader brInput= new BufferedReader
 				(new InputStreamReader(System.in));
 			
@@ -54,64 +54,6 @@ public class MainFile {
 			e.printStackTrace();
 		}
 	}
-
-	public void ViewFile() {
-	    Nasabah R = new Nasabah();
-	    int total=0;
-	    System.out.println("========== ViewFile ======");     
-	    ObjectInputStream in = null;
-	    try {
-	    	// 1. buka file untuk dibaca	
-	       in=new ObjectInputStream(new FileInputStream
-	            ("D:\\Nasabah.dat"));
-	       Object curR = in.readObject();					
-	       try {	
-	       // 2. baca dan proses setiap record yang dibaca                 
-	          while (true) {
-	            R = (Nasabah) curR; //inputstream -> objek customer
-				System.out.println("No Rekening: "+R.getNorek());
-				System.out.println("Nama : "+R.getNama());	
-				System.out.println("Saldo : "+R.getSaldo());
-				total++;						
-				curR = in.readObject(); // baca lagi...
-	          }
-	    	} catch (EOFException e) {}
-		System.out.println("Total record: "+ total);				
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class tidak ditemukan.");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	   public void ViewFile2() {
-	        Nasabah R = new Nasabah();
-	        int total=0;
-	        System.out.println("========== ViewFile ======");     
-	        ObjectInputStream in = null;
-	        try {
-	            // 1. buka file untuk dibaca    
-	           in=new ObjectInputStream(new FileInputStream
-	                ("D:\\NasabahCopy.dat"));
-	           Object curR = in.readObject();                   
-	           try {    
-	           // 2. baca dan proses setiap record yang dibaca                 
-	              while (true) {
-	                R = (Nasabah) curR; //inputstream -> objek customer
-	                System.out.println("No Rekening: "+R.getNorek());
-	                System.out.println("Nama : "+R.getNama());  
-	                System.out.println("Saldo : "+R.getSaldo());
-	                total++;                        
-	                curR = in.readObject(); // baca lagi...
-	              }
-	            } catch (EOFException e) {}
-	        System.out.println("Total record: "+ total);                
-	        } catch (ClassNotFoundException e) {
-	            System.out.println("Class tidak ditemukan.");
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
 	   
 	   public void ViewFileX(String nf) {
          Nasabah R = new Nasabah();
@@ -142,14 +84,14 @@ public class MainFile {
          }
      }
 	
-	void SalinArsip() {
+	void SalinArsip(String nf1, String nf2) {
 	  Nasabah R = new Nasabah();
 	  ObjectInputStream in = null; // pointer ke F1
 	  ObjectOutputStream out = null; // pointer ke F2
       try {
         // 1. buka file untuk dibaca    
-        in = new ObjectInputStream(new FileInputStream("D:\\Nasabah.dat")); // F1
-        out = new ObjectOutputStream(new FileOutputStream("D:\\"+ "NasabahCopy.dat"));
+        in = new ObjectInputStream(new FileInputStream(nf1)); // F1
+        out = new ObjectOutputStream(new FileOutputStream(nf2));
         
         Object curR = in.readObject();               
        try {    
@@ -167,14 +109,14 @@ public class MainFile {
         }
 	}
 	
-    void SalinArsipDenganKondisi() {
+    void SalinArsipDenganKondisi(String nf1, String nf2) {
       Nasabah R = new Nasabah();
       ObjectInputStream in = null; // pointer ke F1
       ObjectOutputStream out = null; // pointer ke F2
       try {
         // 1. buka file untuk dibaca    
-        in = new ObjectInputStream(new FileInputStream("D:\\Nasabah.dat")); // F1
-        out = new ObjectOutputStream(new FileOutputStream("D:\\"+ "NasabahCopy.dat"));
+        in = new ObjectInputStream(new FileInputStream(nf1)); // F1
+        out = new ObjectOutputStream(new FileOutputStream(nf2));
         
         Object curR = in.readObject();               
        try {    
@@ -196,15 +138,15 @@ public class MainFile {
 	
 	public static void main(String[] args) {
     	// Nasabah  R= new Nasabah();
-		MainFile B= new MainFile();
-		String nf1, nf2;
+		MainFile2 B= new MainFile2();
+		String nf1, nf2,nf3;
 		nf1 = "D:\\Nasabah.dat";
 		nf2 = "D:\\NasabahCopy.dat";
-				
-		B.SaveToFile(); // tulis ke file
-//		B.ViewFile();  // baca isi file
-		B.SalinArsipDenganKondisi();
-//		B.ViewFile2();
+		nf3 = "D:\\Nasabah2.dat";
+		
+		B.SaveToFile(nf1); // tulis ke file
+		B.SalinArsip(nf1, nf3);
+		B.SalinArsipDenganKondisi(nf1, nf2);
 		B.ViewFileX(nf1);
 		B.ViewFileX(nf2);
     }
