@@ -14,6 +14,7 @@ public class Barang {
     System.out.print("nama: "); nama = sc.next();
     System.out.print("jumlah: "); jumlah = sc.nextInt();
     System.out.print("harga: "); harga = sc.nextFloat();
+    sc.close();
   }
   
   void tampilData() {

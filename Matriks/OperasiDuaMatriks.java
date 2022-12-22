@@ -22,40 +22,41 @@ public class OperasiDuaMatriks {
         int x = 0;
         for (int k = 0; k < kolom1; k++) {
           x = x + A.GetElement(i, k) * B.GetElement(k, j);
-//          x = x + A[i][k] * B[k][j];
+        //  x = x + A[i][k] * B[k][j];
         }
         C.SetElement(i, j, x);
       }
     }
   }
   
-    public static void main(String[] args) {
-      Scanner sc = new Scanner(System.in);
-      MatriksInt A = new MatriksInt();
-      MatriksInt B = new MatriksInt();
-      MatriksInt C = new MatriksInt();
-      
-      // Pertemuan 9
-      System.out.print("Baris: ");
-      int baris1 = sc.nextInt();
-      System.out.print("Kolom: ");
-      int kolom1 = sc.nextInt();
-      A.IsiMatriks(baris1, kolom1);
-      A.TampilMatriks(baris1, kolom1);
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    MatriksInt A = new MatriksInt();
+    MatriksInt B = new MatriksInt();
+    MatriksInt C = new MatriksInt();
+    
+    // Pertemuan 9
+    System.out.print("Baris: ");
+    int baris1 = sc.nextInt();
+    System.out.print("Kolom: ");
+    int kolom1 = sc.nextInt();
+    A.IsiMatriks(baris1, kolom1);
+    A.TampilMatriks(baris1, kolom1);
 
-      System.out.print("Baris: ");
-      int baris2 = sc.nextInt();
-      System.out.print("Kolom: ");
-      int kolom2 = sc.nextInt();
-      B.IsiMatriks(baris2, kolom2);
-      B.TampilMatriks(baris2, kolom2);
-      
-      PenjumlahanMatriks(baris2, kolom2, C, A, B);
-      
-      C.TampilMatriks(baris2, kolom2);
-      
-      PerkalianMatriks(baris1, kolom1, kolom2, C, A, B);
-      
-      C.TampilMatriks(baris1, kolom2);
+    System.out.print("Baris: ");
+    int baris2 = sc.nextInt();
+    System.out.print("Kolom: ");
+    int kolom2 = sc.nextInt();
+    B.IsiMatriks(baris2, kolom2);
+    B.TampilMatriks(baris2, kolom2);
+    
+    PenjumlahanMatriks(baris2, kolom2, C, A, B);
+    
+    C.TampilMatriks(baris2, kolom2);
+    
+    PerkalianMatriks(baris1, kolom1, kolom2, C, A, B);
+    
+    C.TampilMatriks(baris1, kolom2);
+    sc.close();
   }
 }

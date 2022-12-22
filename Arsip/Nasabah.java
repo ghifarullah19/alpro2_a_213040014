@@ -1,15 +1,13 @@
 package Arsip;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Nasabah {
+class Nasabah implements Serializable {
 	String norek, nama, username, pin;
 	float saldo;
 	
-	Scanner sc = new Scanner(System.in);
-	
-	Nasabah() {
-	}
+	Nasabah() {}
 	
 	Nasabah(String no, String nm, float uang) {
 	  norek = no;
@@ -19,6 +17,7 @@ public class Nasabah {
 	
 	// Pertemuan 2 = Prosedur baca nasabah
 	void BacaNasabah() {
+	    Scanner sc = new Scanner(System.in);
 		System.out.println("Isi Data");
 		System.out.print("norek: ");
 		norek = sc.next();
@@ -28,18 +27,19 @@ public class Nasabah {
 		pin = sc.next();
 		System.out.print("saldo: ");
 		saldo = sc.nextFloat();
+		sc.close();
 	}
 	
 	String getNorek() {
-	  return norek;
+		return norek;
 	}
 	
 	String getNama() {
-      return nama;
+    	return nama;
     }
 	
 	float getSaldo() {
-      return saldo;
+    	return saldo;
     }
 	
 	// Pertemuan 2 = Prosedur tulis nasabah

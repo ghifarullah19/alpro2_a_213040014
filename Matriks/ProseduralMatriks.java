@@ -10,6 +10,7 @@ public class ProseduralMatriks {
                 a[b][k] = sc.nextInt();
             }
         }
+        sc.close();
     }
 
     static void printMatriks(int[][] matriks, int m, int n) {
@@ -85,5 +86,7 @@ public class ProseduralMatriks {
 
         multi(c, matriksPertama, matriksKedua, baris1, kolom1, kolom2);
         printMatriks(c, baris2, kolom2);
+
+        sc.close();
     }
 }

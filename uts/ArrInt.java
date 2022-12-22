@@ -11,6 +11,7 @@ public class ArrInt {
     for (int i = 0; i < N; i++) {
       a[i] = sc.nextInt();
     }
+    sc.close();
   }
   
   void tampilArray() {
@@ -47,5 +48,7 @@ public class ArrInt {
     } else {
       System.err.println("nilai tidak ditemukan. error " + hasil);
     }
+
+    sc.close();
   }
 }

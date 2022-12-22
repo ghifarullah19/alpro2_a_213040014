@@ -25,6 +25,7 @@ public class Matriks {
     }
     // jawaban no 3.b
     
+    sc.close();
   }
 
 }

@@ -11,6 +11,7 @@ public class BinarySearch {
     for (int i = 0; i < N; i++) {
       a[i] = sc.nextInt();
     }
+    sc.close();
   }
   
   // jawaban no 3.a
@@ -53,5 +54,7 @@ public class BinarySearch {
     } else {
       System.err.println("nilai tidak ditemukan. error" + hasil);
     }
+
+    sc.close();
   }
 }
