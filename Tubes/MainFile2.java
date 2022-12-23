@@ -321,7 +321,7 @@ public class MainFile2 {
   //   SalinArsip(nftemp, nf);
 	// }
 
-  void TarikSetorTunai(String nf, String norek) {
+  void TarikSetorCekTunai(String nf, String norek) {
     /* procedure SetorTunai */
     /* mengubah saldo dari norek di rekaman baru lalu menyalin ke file F */
     
@@ -352,13 +352,14 @@ public class MainFile2 {
         }
       } catch (EOFException e) {}
       if (ketemu) {
-        System.out.println(R.getNorek() + ", " + R.getNama() + ", " + R.getSaldo());
         System.out.println("Apakah anda ingin melakukan penyetoran atau penarikan?: ");
         System.out.println("1. Tarik Tunai");
         System.out.println("2. Setor Tunai");
+        System.out.println("3. Cek Saldo");
         System.out.println("Masukan Pilihan: ");
         pilih = sc.nextInt();
         if (pilih == 1) {
+          System.out.println("=== TarikTunai ===");
           System.out.print("Masukan besar penarikan: ");
           float besar = sc.nextFloat();
           if (R.getSaldo() == 0 ) {
@@ -368,12 +369,26 @@ public class MainFile2 {
           } else {
             R.setSaldo(R.getSaldo() - besar);
             System.out.println("Tarik tunai berhasil sebesar: Rp." + besar);
+            System.out.println("Norek: " + R.getNorek());
+            System.out.println("Nama: " + R.getNama());
+            System.out.println("Saldo: " + R.getSaldo());
           }
         } else if (pilih == 2) {
+          System.out.println("=== SetorTunai ===");
           System.out.print("Masukan besar penyetoran: ");
           float besar = sc.nextFloat();
           R.setSaldo(R.getSaldo() + besar);
-          System.out.println("Setor tunai berhasil sebesar: Rp." + besar); 
+          System.out.println("Setor tunai berhasil sebesar: Rp." + besar);
+          System.out.println("Norek: " + R.getNorek());
+          System.out.println("Nama: " + R.getNama());
+          System.out.println("Saldo: " + R.getSaldo());
+        } else if (pilih == 3) {
+          System.out.println("=== CekSaldo ===");
+          System.out.println("Norek: " + R.getNorek());
+          System.out.println("Nama: " + R.getNama());
+          System.out.println("Saldo: " + R.getSaldo());
+        } else {
+          System.out.println("Input Salah!");
         }
         out.writeObject(R);// tulis record ke file F2
         curR = in.readObject();               
@@ -419,8 +434,8 @@ public class MainFile2 {
       // B.ViewFileX(nf1); // baca data
       // B.TarikTunai(nf1, log);
       // B.ViewFileX(nf1);
-      B.TarikSetorTunai(nf1, log);
-      B.ViewFileX(nf1);
+      B.TarikSetorCekTunai(nf1, log);
+      // B.ViewFileX(nf1);
     } else {
       System.out.println("Anda tidak dapat login. Norek/PIN Salah!");
     }
