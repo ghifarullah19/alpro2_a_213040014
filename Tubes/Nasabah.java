@@ -12,7 +12,7 @@ class Nasabah implements Serializable {
 	Nasabah(String no, String nm, String pn, float uang) {
 	  norek = no;
 	  nama = nm;
-		pin = pn;
+	  pin = pn;
 	  saldo = uang;
 	}
 	
@@ -30,25 +30,33 @@ class Nasabah implements Serializable {
 		saldo = sc.nextFloat();
 		sc.close();
 	}
-	
+
 	String getNorek() {
-		return norek;
+	  return norek;
 	}
 	
 	String getNama() {
-    return nama;
-  }
+      return nama;
+    }
 
 	String getPIN() {
-		return pin;
+	  return pin;
 	}
 	
 	float getSaldo() {
-    return saldo;
-  }
+      return saldo;
+    }
 
+	void setNama(String nm) {
+      nama = nm;
+    }
+	
+	void setPIN(String pn) {
+      pin = pn;
+    }
+	
 	void setSaldo(float sd) {
-		saldo = sd;
+	  saldo = sd;
 	}
 	
 	// Pertemuan 2 = Prosedur tulis nasabah

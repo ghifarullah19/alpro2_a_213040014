@@ -8,56 +8,51 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MainFile2 {
   Scanner sc = new Scanner(System.in);
 
   public void SaveToFile(String nf) { // menulis ke file
-		Nasabah R= new Nasabah();
-		float Saldoku=0;
-		String No="", Namaku="", PIN = "";
+    Nasabah R= new Nasabah();
+    float Saldoku=0;
+    String No="", Namaku="", PIN = "";
 		
-		System.out.println("========== SaveToFile ======");
-		ObjectOutputStream out = null;
-		try {  
-			// 1. buka file untuk ditulis
-			out=new ObjectOutputStream(new FileOutputStream(nf)); // nama direktori+file
-			BufferedReader brInput= new BufferedReader(new InputStreamReader(System.in));
+	System.out.println("========== SaveToFile ======");
+	ObjectOutputStream out = null;
+	try {  
+		// 1. buka file untuk ditulis
+		out=new ObjectOutputStream(new FileOutputStream(nf)); // nama direktori+file
+		BufferedReader brInput= new BufferedReader(new InputStreamReader(System.in));
 			
-			for (int i=0;i<3;i++){
-				try {
-					System.out.println("No Rekening : ");
-					No=brInput.readLine();
-				} catch (IOException e) {
-					e.printStackTrace();  
-				}    
-				try {
-					System.out.println("Nama :");
-					Namaku=brInput.readLine();
-				} catch (IOException e) {
-					e.printStackTrace();  
-				}
-        try {
-					System.out.println("PIN : ");
-					PIN = brInput.readLine();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				try { 
-					System.out.println("Saldo : ");
-					Saldoku=sc.nextFloat();
-					R = new Nasabah(No,Namaku,PIN,Saldoku);    
-					out.writeObject(R); // tulis record ke file
-				} catch (IOException e){
-					e.printStackTrace();  
-				}
-			}                       
+		for (int i=0;i<3;i++){
+		  try {
+		    System.out.print("No Rekening : ");
+			No=brInput.readLine();
+			System.out.print("Nama :");
+	        Namaku=brInput.readLine();
+	        do {
+	          System.out.print("PIN (PIN harus terdiri dari 4 karakter): ");
+	          PIN = brInput.readLine();
+	          if (PIN.length() != 4) {
+	            System.err.println("PIN harus terdiri dari 4 karakter!");
+	          }
+	        } while (PIN.length() != 4);
+            System.out.print("Saldo : ");
+            Saldoku=sc.nextFloat();
+            R = new Nasabah(No,Namaku,PIN,Saldoku);    
+            out.writeObject(R); // tulis record ke file
+		  } catch (IOException e) {
+			e.printStackTrace();  
+		  }
+		}                       
 		out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	} catch (IOException e) {
+		e.printStackTrace();
 	}
+  }
 	   
   public void ViewFileX(String nf) {
     Nasabah R = new Nasabah();
@@ -74,8 +69,8 @@ public class MainFile2 {
           R = (Nasabah) curR; //inputstream -> objek customer
           System.out.println("No Rekening: "+R.getNorek());
           System.out.println("Nama : "+R.getNama());  
-          System.out.println("PIN : "+R.getPIN());  
-          System.out.println("Saldo : "+R.getSaldo());
+          System.out.println("PIN : "+R.getPIN());
+          Rupiah("Saldo:", R.getSaldo());
           total++;                        
           curR = in.readObject(); // baca lagi...
         }
@@ -88,10 +83,10 @@ public class MainFile2 {
     }
   }
 	
-	void SalinArsip(String nf1, String nf2) {
-	  Nasabah R = new Nasabah();
-	  ObjectInputStream in = null; // pointer ke F1
-	  ObjectOutputStream out = null; // pointer ke F2
+  void SalinArsip(String nf1, String nf2) {
+    Nasabah R = new Nasabah();
+	ObjectInputStream in = null; // pointer ke F1
+	ObjectOutputStream out = null; // pointer ke F2
     try {
       // 1. buka file untuk dibaca dan ditulis
       in = new ObjectInputStream(new FileInputStream(nf1)); // F1
@@ -111,7 +106,7 @@ public class MainFile2 {
     } catch (IOException e) {
       e.printStackTrace();
     }
-	}
+  }
 	
   void SalinArsipDenganKondisi(String nf1, String nf2) {
     Nasabah R = new Nasabah();
@@ -169,7 +164,7 @@ public class MainFile2 {
       } catch (EOFException e) {}
       in.close();       
     } catch (ClassNotFoundException e) {
-      System.out.println("Class tidak ditemukan.");
+      System.err.println("Class tidak ditemukan.");
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -182,32 +177,25 @@ public class MainFile2 {
       // 4. input data
       for (int i=0;i<3;i++){
         try {
-          System.out.println("No Rekening : ");
+          System.out.print("No Rekening : ");
           No=brInput.readLine();
-        } catch (IOException e) {
-          e.printStackTrace();  
-        }    
-        try {
-          System.out.println("Nama :");
+          System.out.print("Nama :");
           Namaku=brInput.readLine();
-        } catch (IOException e) {
-          e.printStackTrace();  
-        } 
-        try {
-					System.out.println("PIN : ");
-					PIN = brInput.readLine();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-        try { 
-          System.out.println("Saldo : ");
+          do {
+            System.out.print("PIN (PIN harus terdiri dari 4 karakter): ");
+            PIN = brInput.readLine();
+            if (PIN.length() != 4) {
+              System.err.println("PIN harus terdiri dari 4 karakter!");
+            }
+          } while (PIN.length() != 4);
+          System.out.print("Saldo : ");
           Saldoku=sc.nextFloat();
           R = new Nasabah(No,Namaku,PIN,Saldoku);    
           out.writeObject(R); // tulis record ke file
-        } catch (IOException e){
+        } catch (IOException e) {
           e.printStackTrace();  
         }
-      }                       
+      }
     out.close();
     } catch (IOException e) {
       e.printStackTrace();
@@ -216,6 +204,138 @@ public class MainFile2 {
     SalinArsip(nftemp, nf);
   }
 
+  void MengubahData(String nf, String norek) {
+    /* procedure TarikTunai */
+    /* mengubah nama dari norek di rekaman baru lalu menyalin ke file F */
+    
+    /* DEKLARASI */
+    Nasabah R = new Nasabah();
+    ObjectInputStream in = null; // pointer ke F1
+    ObjectOutputStream out = null; // pointer ke F2
+    boolean ketemu = false;
+    String nftemp = "D:\\temp.dat", namaBaru, pinBaru;
+
+    try {
+      // 1. buka file untuk dibaca dan ditulis
+      in = new ObjectInputStream(new FileInputStream(nf)); // F1
+      out = new ObjectOutputStream(new FileOutputStream(nftemp)); //F2
+      
+      Object curR = in.readObject();               
+      try {    
+        // 2. baca dan proses setiap record yang dibaca                 
+        while (true && ketemu == false) {
+          R = (Nasabah) curR; //inputstream -> objek customer
+          if (R.getNorek().equals(norek)) {
+            ketemu = true;
+          } else {
+            out.writeObject(R);// tulis record ke file F2
+            curR = in.readObject(); // baca lagi dari file F1          
+          }
+        }
+      } catch (EOFException e) {}
+      if (ketemu) {
+        BufferedReader brInput= new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Pilih data yang akan diubah: \n1. Nama \n2. PIN");
+        System.out.print("==> ");
+        int pilih = sc.nextInt();
+        if (pilih == 1) {
+          System.out.print("Masukan Nama baru: ");
+          namaBaru = brInput.readLine();
+          R.setNama(namaBaru);
+        } else if (pilih == 2) {
+          do {
+            System.out.println("PIN (PIN harus terdiri dari 4 karakter): ");
+            pinBaru = brInput.readLine();
+            if (pinBaru.length() != 4) {
+              System.err.println("PIN harus terdiri dari 4 karakter!");
+            }
+          } while (pinBaru.length() != 4);
+          R.setPIN(pinBaru);
+        } else {
+          System.err.println("Invalid Input.");
+        }
+        out.writeObject(R);// tulis record ke file F2
+        curR = in.readObject();               
+        try {    
+          // 2. baca dan proses setiap record yang dibaca                 
+          while (true) {
+            R = (Nasabah) curR; //inputstream -> objek customer
+            out.writeObject(R);// tulis record ke file F2
+            curR = in.readObject(); // baca lagi dari file F1          
+          }
+        } catch (EOFException e) {}
+      } else {
+        System.err.println(R.getNorek() + " tidak ditemukan.");
+      }
+      in.close();  
+      out.close();     
+    } catch (ClassNotFoundException e) {
+      System.out.println("Class tidak ditemukan.");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    SalinArsip(nftemp, nf);
+  }
+  
+  void CekData(String nf, String norek) {
+    /* procedure SetorTunai */
+    /* mengubah saldo dari norek di rekaman baru lalu menyalin ke file F */
+    
+    /* DEKLARASI */
+    Nasabah R = new Nasabah();
+    ObjectInputStream in = null; // pointer ke F1
+    ObjectOutputStream out = null; // pointer ke F2
+    boolean ketemu = false;
+    String nftemp = "D:\\temp.dat";
+
+    try {
+      // 1. buka file untuk dibaca dan ditulis
+      in = new ObjectInputStream(new FileInputStream(nf)); // F1
+      out = new ObjectOutputStream(new FileOutputStream(nftemp)); //F2
+      
+      Object curR = in.readObject();               
+      try {    
+        // 2. baca dan proses setiap record yang dibaca                 
+        while (true && ketemu == false) {
+          R = (Nasabah) curR; //inputstream -> objek customer
+          if (R.getNorek().equals(norek)) {
+            ketemu = true;
+          } else {
+            out.writeObject(R);// tulis record ke file F2
+            curR = in.readObject(); // baca lagi dari file F1          
+          }
+        }
+      } catch (EOFException e) {}
+      if (ketemu) {
+        System.out.println("========== CekData ======");
+        System.out.println("Norek: " + R.getNorek());
+        System.out.println("Nama: " + R.getNama());
+        Rupiah("Saldo:", R.getSaldo());
+        out.writeObject(R);// tulis record ke file F2
+        curR = in.readObject();               
+        try {    
+          // 2. baca dan proses setiap record yang dibaca                 
+          while (true) {
+            R = (Nasabah) curR; //inputstream -> objek customer
+            out.writeObject(R);// tulis record ke file F2
+            curR = in.readObject(); // baca lagi dari file F1          
+          }
+        } catch (EOFException e) {}
+      } else {
+        System.err.println(R.getNorek() + " tidak ditemukan.");
+      }
+      in.close();  
+      out.close();     
+    } catch (ClassNotFoundException e) {
+      System.out.println("Class tidak ditemukan.");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    SalinArsip(nftemp, nf);
+  }
+ 
   String Login(String nf) {
     Nasabah R = new Nasabah();
     ObjectInputStream in = null; // pointer ke F1
@@ -240,9 +360,8 @@ public class MainFile2 {
           if (R.getNorek().equals(norekS) && R.getPIN().equals(pass)) {
             ix = R.getNorek();
           } else {
-            System.out.println("Norek/PIN Salah!");
+            System.err.println("Norek/PIN Salah!");
           }
-          System.out.println(ix);
           curR = in.readObject(); // baca lagi dari file F1   
           ulang += 1;
         } while (ix.equals("") && ulang < 3);
@@ -256,72 +375,131 @@ public class MainFile2 {
     return ix;
   }
 	
-  //  void TarikTunai(String nf, String norek) {
-  //   /* procedure TarikTunai */
-  //   /* mengubah saldo dari norek di rekaman baru lalu menyalin ke file F */
+  void TarikTunai(String nf, String norek) {
+    /* procedure TarikTunai */
+    /* mengubah saldo dari norek di rekaman baru lalu menyalin ke file F */
     
-  //   /* DEKLARASI */
-  //   Nasabah R = new Nasabah();
-  //   ObjectInputStream in = null; // pointer ke F1
-  //   ObjectOutputStream out = null; // pointer ke F2
-  //   boolean ketemu = false;
-  //   String nftemp = "D:\\temp.dat";
-	// 	System.out.print("Masukan besar penarikan: ");
-	// 	float besar = sc.nextFloat();
+    /* DEKLARASI */
+    Nasabah R = new Nasabah();
+    ObjectInputStream in = null; // pointer ke F1
+    ObjectOutputStream out = null; // pointer ke F2
+    boolean ketemu = false;
+    String nftemp = "D:\\temp.dat";
+	System.out.print("Masukan besar penarikan: ");
+	float besar = sc.nextFloat();
 
-  //   try {
-  //     // 1. buka file untuk dibaca dan ditulis
-  //     in = new ObjectInputStream(new FileInputStream(nf)); // F1
-  //     out = new ObjectOutputStream(new FileOutputStream(nftemp)); //F2
+    try {
+      // 1. buka file untuk dibaca dan ditulis
+      in = new ObjectInputStream(new FileInputStream(nf)); // F1
+      out = new ObjectOutputStream(new FileOutputStream(nftemp)); //F2
       
-  //     Object curR = in.readObject();               
-  //     try {    
-  //       // 2. baca dan proses setiap record yang dibaca                 
-  //       while (true && ketemu == false) {
-  //         R = (Nasabah) curR; //inputstream -> objek customer
-  //         if (R.getNorek().equals(norek)) {
-  //           ketemu = true;
-  //         } else {
-  //           out.writeObject(R);// tulis record ke file F2
-  //           curR = in.readObject(); // baca lagi dari file F1          
-  //         }
-  //       }
-  //     } catch (EOFException e) {}
-  //     if (ketemu) {
-  //       System.out.println(R.getNorek() + ", " + R.getNama() + ", " + R.getSaldo());
-  //       if (R.getSaldo() == 0 ) {
-  //         System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda Rp.0");
-  //       } else if (R.getSaldo() <= besar){
-  //         System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda kurang/berada di limit");
-  //       } else {
-  //         R.setSaldo(R.getSaldo() - besar);
-  //         System.out.println("Tarik tunai berhasil sebesar: Rp." + besar); 
-  //         out.writeObject(R);// tulis record ke file F2
-  //       }
-  //       curR = in.readObject();               
-  //       try {    
-  //         // 2. baca dan proses setiap record yang dibaca                 
-  //         while (true) {
-  //           R = (Nasabah) curR; //inputstream -> objek customer
-  //           out.writeObject(R);// tulis record ke file F2
-  //           curR = in.readObject(); // baca lagi dari file F1          
-  //         }
-  //       } catch (EOFException e) {}
-  //     } else {
-  //       System.out.println(R.getNorek() + " tidak ditemukan.");
-  //     }
-  //     in.close();  
-  //     out.close();     
-  //   } catch (ClassNotFoundException e) {
-  //     System.out.println("Class tidak ditemukan.");
-  //   } catch (IOException e) {
-  //     e.printStackTrace();
-  //   }
+      Object curR = in.readObject();               
+      try {    
+        // 2. baca dan proses setiap record yang dibaca                 
+        while (true && ketemu == false) {
+          R = (Nasabah) curR; //inputstream -> objek customer
+          if (R.getNorek().equals(norek)) {
+            ketemu = true;
+          } else {
+            out.writeObject(R);// tulis record ke file F2
+            curR = in.readObject(); // baca lagi dari file F1          
+          }
+        }
+      } catch (EOFException e) {}
+      if (ketemu) {
+        System.out.println(R.getNorek() + ", " + R.getNama() + ", " + R.getSaldo());
+        if (R.getSaldo() == 0 ) {
+          System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda Rp.0");
+        } else if (R.getSaldo() <= besar){
+          System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda kurang/berada di limit");
+        } else {
+          R.setSaldo(R.getSaldo() - besar);
+          Rupiah("Penarikan saldo berhasil sebesar", besar);
+          out.writeObject(R);// tulis record ke file F2
+        }
+        curR = in.readObject();               
+        try {    
+          // 2. baca dan proses setiap record yang dibaca                 
+          while (true) {
+            R = (Nasabah) curR; //inputstream -> objek customer
+            out.writeObject(R);// tulis record ke file F2
+            curR = in.readObject(); // baca lagi dari file F1          
+          }
+        } catch (EOFException e) {}
+      } else {
+        System.err.println(R.getNorek() + " tidak ditemukan.");
+      }
+      in.close();  
+      out.close();     
+    } catch (ClassNotFoundException e) {
+      System.out.println("Class tidak ditemukan.");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
-  //   SalinArsip(nftemp, nf);
-	// }
+    SalinArsip(nftemp, nf);
+  }
 
-  void TarikSetorCekTunai(String nf, String norek) {
+  void SetorTunai(String nf, String norek) {
+    /* procedure TarikTunai */
+    /* mengubah saldo dari norek di rekaman baru lalu menyalin ke file F */
+    
+    /* DEKLARASI */
+    Nasabah R = new Nasabah();
+    ObjectInputStream in = null; // pointer ke F1
+    ObjectOutputStream out = null; // pointer ke F2
+    boolean ketemu = false;
+    String nftemp = "D:\\temp.dat";
+	System.out.print("Masukan besar penyetoran: ");
+	float besar = sc.nextFloat();
+
+    try {
+      // 1. buka file untuk dibaca dan ditulis
+      in = new ObjectInputStream(new FileInputStream(nf)); // F1
+      out = new ObjectOutputStream(new FileOutputStream(nftemp)); //F2
+      
+      Object curR = in.readObject();               
+      try {    
+        // 2. baca dan proses setiap record yang dibaca                 
+        while (true && ketemu == false) {
+          R = (Nasabah) curR; //inputstream -> objek customer
+          if (R.getNorek().equals(norek)) {
+            ketemu = true;
+          } else {
+            out.writeObject(R);// tulis record ke file F2
+            curR = in.readObject(); // baca lagi dari file F1          
+          }
+        }
+      } catch (EOFException e) {}
+      if (ketemu) {
+        System.out.println("========== SetorTunai ======");
+        R.setSaldo(R.getSaldo() + besar);
+        Rupiah("Penyetoran saldo berhasil sebesar", besar);
+        out.writeObject(R);// tulis record ke file F2
+        curR = in.readObject();               
+        try {    
+          // 2. baca dan proses setiap record yang dibaca                 
+          while (true) {
+            R = (Nasabah) curR; //inputstream -> objek customer
+            out.writeObject(R);// tulis record ke file F2
+            curR = in.readObject(); // baca lagi dari file F1          
+          }
+        } catch (EOFException e) {}
+      } else {
+        System.out.println(R.getNorek() + " tidak ditemukan.");
+      }
+      in.close();  
+      out.close();     
+    } catch (ClassNotFoundException e) {
+      System.err.println("Class tidak ditemukan.");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    SalinArsip(nftemp, nf);
+  }
+
+  void CekSaldo(String nf, String norek) {
     /* procedure SetorTunai */
     /* mengubah saldo dari norek di rekaman baru lalu menyalin ke file F */
     
@@ -330,7 +508,6 @@ public class MainFile2 {
     ObjectInputStream in = null; // pointer ke F1
     ObjectOutputStream out = null; // pointer ke F2
     boolean ketemu = false;
-    int pilih = -1;
     String nftemp = "D:\\temp.dat";
 
     try {
@@ -352,44 +529,8 @@ public class MainFile2 {
         }
       } catch (EOFException e) {}
       if (ketemu) {
-        System.out.println("Apakah anda ingin melakukan penyetoran atau penarikan?: ");
-        System.out.println("1. Tarik Tunai");
-        System.out.println("2. Setor Tunai");
-        System.out.println("3. Cek Saldo");
-        System.out.println("Masukan Pilihan: ");
-        pilih = sc.nextInt();
-        if (pilih == 1) {
-          System.out.println("=== TarikTunai ===");
-          System.out.print("Masukan besar penarikan: ");
-          float besar = sc.nextFloat();
-          if (R.getSaldo() == 0 ) {
-            System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda Rp.0");
-          } else if (R.getSaldo() <= besar){
-            System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda kurang/berada di limit");
-          } else {
-            R.setSaldo(R.getSaldo() - besar);
-            System.out.println("Tarik tunai berhasil sebesar: Rp." + besar);
-            System.out.println("Norek: " + R.getNorek());
-            System.out.println("Nama: " + R.getNama());
-            System.out.println("Saldo: " + R.getSaldo());
-          }
-        } else if (pilih == 2) {
-          System.out.println("=== SetorTunai ===");
-          System.out.print("Masukan besar penyetoran: ");
-          float besar = sc.nextFloat();
-          R.setSaldo(R.getSaldo() + besar);
-          System.out.println("Setor tunai berhasil sebesar: Rp." + besar);
-          System.out.println("Norek: " + R.getNorek());
-          System.out.println("Nama: " + R.getNama());
-          System.out.println("Saldo: " + R.getSaldo());
-        } else if (pilih == 3) {
-          System.out.println("=== CekSaldo ===");
-          System.out.println("Norek: " + R.getNorek());
-          System.out.println("Nama: " + R.getNama());
-          System.out.println("Saldo: " + R.getSaldo());
-        } else {
-          System.out.println("Input Salah!");
-        }
+        System.out.println("========== CekSaldo ======");
+        Rupiah("Saldo Anda:", R.getSaldo());
         out.writeObject(R);// tulis record ke file F2
         curR = in.readObject();               
         try {    
@@ -401,7 +542,7 @@ public class MainFile2 {
           }
         } catch (EOFException e) {}
       } else {
-        System.out.println(R.getNorek() + " tidak ditemukan.");
+        System.err.println(R.getNorek() + " tidak ditemukan.");
       }
       in.close();  
       out.close();     
@@ -412,32 +553,115 @@ public class MainFile2 {
     }
 
     SalinArsip(nftemp, nf);
-	}
+  }
+  
+  void Rupiah(String pesan, float rp) {
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+    System.out.println(pesan + " " + formatRupiah.format(rp));
+  }
+  
+  int Menu() {
+	  System.out.println("========== SelamatDatang ======");
+	  System.out.println("Menu: \n1. Cek Saldo \n2. Setor Tunai \n3. Tarik Tunai "
+	      + "\n4. Cek Data \n5. Menambah Data \n6. Mengubah Data \n0. Keluar");
+	  System.out.print("==> ");
+	  int pilihan = sc.nextInt();
+	  return pilihan;
+  }
 
-	public static void main(String[] args) {
-    	// Nasabah  R= new Nasabah();
-		MainFile2 B= new MainFile2();
-		String nf1, nf2, nf3, log;
-		nf1 = "D:\\Nasabah_TUBES.dat";
-		nf2 = "D:\\NasabahCopy_TUBES.dat";
-		nf3 = "D:\\Nasabah2_TUBES.dat";
+  void PauseScreen(){
+    try {
+      if (System.getProperty("os.name").contains("Windows")){
+        new ProcessBuilder("cmd","/c","pause").inheritIO().start().waitFor();
+      } else {
+        System.out.print("\033\143");
+      }
+    } catch (Exception ex){
+      System.err.println("tidak bisa clear screen");
+    }
+  }
+
+  void ClearScreen(){
+    try {
+      if (System.getProperty("os.name").contains("Windows")){
+        new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
+      } else {
+        System.out.print("\033\143");
+      }
+    } catch (Exception ex){
+      System.err.println("tidak bisa clear screen");
+    }
+  }
+
+  public static void main(String[] args) {
+    // Nasabah  R= new Nasabah();
+	MainFile2 B= new MainFile2();
+	String nf1, nf2, nf3, log;
+	nf1 = "D:\\Nasabah_TUBES.dat";
+	nf2 = "D:\\NasabahCopy_TUBES.dat";
+	nf3 = "D:\\Nasabah2_TUBES.dat";
 		
-		// B.SaveToFile(nf1); // tulis ke file
-		// B.SalinArsip(nf1, nf2); // salin file
-		// B.SalinArsipDenganKondisi(nf1, nf2); // salin file dengan kondisi
-		// B.ViewFileX(nf1); // baca file
-		// B.ViewFileX(nf2); // baca file
-		// B.MenambahData(nf1); // sisip data
+	// B.SaveToFile(nf1); // tulis ke file
+	// B.SalinArsip(nf1, nf2); // salin file
+	// B.SalinArsipDenganKondisi(nf1, nf2); // salin file dengan kondisi
+	// B.ViewFileX(nf1); // baca file
+	// B.ViewFileX(nf2); // baca file
+	// B.MenambahData(nf1); // sisip data
     // B.ViewFileX(nf1);
     log = B.Login(nf1);
     if (!(log.equals(""))) {
       // B.ViewFileX(nf1); // baca data
       // B.TarikTunai(nf1, log);
       // B.ViewFileX(nf1);
-      B.TarikSetorCekTunai(nf1, log);
+      int menu;
+      do {
+        menu = B.Menu();
+        switch (menu) {
+          case 1:
+            B.CekSaldo(nf1, log);
+            B.PauseScreen();
+            B.ClearScreen();
+            break;
+          case 2:
+            B.SetorTunai(nf1, log);
+            B.PauseScreen();
+            B.ClearScreen();
+            break;
+          case 3:
+            B.TarikTunai(nf1, log);
+            B.PauseScreen();
+            B.ClearScreen();
+            break;
+          case 4:
+            B.CekData(nf1, log);
+            B.PauseScreen();
+            B.ClearScreen();
+            break;
+          case 5:
+            B.MenambahData(nf1);
+            B.PauseScreen();
+            B.ClearScreen();
+            break;
+          case 6:
+            B.MengubahData(nf1, log);
+            B.PauseScreen();
+            B.ClearScreen();
+            break;
+          case 0:
+            System.err.println("Anda telah keluar.");
+            B.ClearScreen();
+            break;
+          default:
+            System.err.println("Invalid Input!");
+            B.PauseScreen();
+            B.ClearScreen();
+            break;
+        } 
+      } while (menu != 0);
       // B.ViewFileX(nf1);
     } else {
-      System.out.println("Anda tidak dapat login. Norek/PIN Salah!");
+      System.err.println("Anda tidak dapat login. Norek/PIN Salah!");
     }
   }
 }
