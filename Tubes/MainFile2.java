@@ -711,10 +711,14 @@ public class MainFile2 {
     String nf1, nf2, nf3, log, admin, pass;
     int pilihLog;
     boolean logAdmin;
-    nf1 = "C:\\Users\\ghifa\\OneDrive\\Documents\\TUBES ALPRO\\FILE\\Nasabah_TUBES.dat";
-    nf2 = "C:\\Users\\ghifa\\OneDrive\\Documents\\TUBES ALPRO\\COPY\\NasabahCopy_TUBES.dat";
-    nf3 = "C:\\Users\\ghifa\\OneDrive\\Documents\\TUBES ALPRO\\FILE\\Nasabah2_TUBES.dat";
+    nf1 = "D:\\Nasabah_TUBES.dat";
+    nf2 = "D:\\NasabahCopy_TUBES.dat";
+    nf3 = "D:\\Nasabah2_TUBES.dat";
 
+    /* ===== NOTE ===== */
+		// B.SaveToFile(nf1); // Comment atau Hapus baris ini, jika Nasabah_TUBES.dat sudah ada di disk D.
+		/* ===== NOTE ===== */
+    
     System.out.println("Login sebagai: \n1. Admin \n2. User");
     pilihLog = sc.nextInt();
     if (pilihLog == 1) {
