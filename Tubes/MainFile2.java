@@ -175,7 +175,7 @@ public class MainFile2 {
       BufferedReader brInput= new BufferedReader(new InputStreamReader(System.in));
       
       // 4. input data
-      for (int i=0;i<3;i++){
+      for (int i=0;i<1;i++){
         try {
           System.out.print("No Rekening : ");
           No=brInput.readLine();
@@ -277,7 +277,67 @@ public class MainFile2 {
 
     SalinArsip(nftemp, nf);
   }
-  
+
+  void MenghapusData(String nf, String norek) {
+    /* procedure HapusData */
+    /* menghapus data melalui norek di rekaman */
+    
+    /* DEKLARASI */
+    Nasabah R = new Nasabah();
+    ObjectInputStream in = null; // pointer ke F1
+    ObjectOutputStream out = null; // pointer ke F2
+    boolean ketemu = false;
+    String nftemp = "D:\\temp.dat";
+    int total = 0;
+
+    try {
+      // 1. buka file untuk dibaca dan ditulis
+      in = new ObjectInputStream(new FileInputStream(nf)); // F1
+      out = new ObjectOutputStream(new FileOutputStream(nftemp)); //F2
+      Object curR = in.readObject();               
+      try {    
+        // 2. baca dan proses setiap record yang dibaca                 
+        while (true) {
+          R = (Nasabah) curR; //inputstream -> objek customer
+          if (R.getNorek().equals(norek)) {
+            ketemu = true;
+          } else {
+            out.writeObject(R);// tulis record ke file F2
+          }
+          curR = in.readObject(); // baca lagi dari file F1          
+        }
+      } catch (EOFException e) {}
+      out.close();
+      if (!ketemu) {
+        System.err.println(R.getNorek() + " tidak ditemukan.");        
+      } else {
+        in = new ObjectInputStream(new FileInputStream(nftemp)); // F2
+        out = new ObjectOutputStream(new FileOutputStream(nf)); //F1
+        curR = in.readObject(); 
+        try {    
+          // 2. baca dan proses setiap record yang dibaca                 
+          while (true) {
+            R = (Nasabah) curR; //inputstream -> objek customer
+            out.writeObject(R);// tulis record ke file F1
+            total++;
+            curR = in.readObject(); // baca lagi dari file F2          
+          }
+        } catch (EOFException e) {
+          System.out.println("Data nasabah telah dihapus");
+          System.out.println("Total record : " + total);
+        }
+      }
+      in.close();  
+      out.close();     
+    } catch (ClassNotFoundException e) {
+      System.out.println("Class tidak ditemukan.");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    SalinArsip(nftemp, nf);
+  }
+   
   void CekData(String nf, String norek) {
     /* procedure SetorTunai */
     /* mengubah saldo dari norek di rekaman baru lalu menyalin ke file F */
@@ -375,6 +435,20 @@ public class MainFile2 {
     return ix;
   }
 	
+  boolean LoginAdmin(String username, String pass) {
+    boolean isTrue = false;
+    int coba = 0;
+    do {
+      coba = coba + 1;
+      if (username.equals("admin") && pass.equals("admin")) {
+        isTrue = true;
+      } else {
+        isTrue = false;
+      }
+    } while (isTrue == false && coba < 3);
+    return isTrue;
+  }
+  
   void TarikTunai(String nf, String norek) {
     /* procedure TarikTunai */
     /* mengubah saldo dari norek di rekaman baru lalu menyalin ke file F */
@@ -564,11 +638,20 @@ public class MainFile2 {
   int Menu() {
 	  System.out.println("========== SelamatDatang ======");
 	  System.out.println("Menu: \n1. Cek Saldo \n2. Setor Tunai \n3. Tarik Tunai "
-	      + "\n4. Cek Data \n5. Menambah Data \n6. Mengubah Data \n0. Keluar");
+	      + "\n0. Keluar");
 	  System.out.print("==> ");
 	  int pilihan = sc.nextInt();
 	  return pilihan;
   }
+
+  int MenuAdmin() {
+    System.out.println("========== SelamatDatangAdmin ======");
+    System.out.println("Menu: \n1. Lihat Data \n2. Cari Data \n3. Tambah Data "
+        + "\n4. Ubah Data \n5. Hapus Data \n6. Copy Data \n0. Keluar");
+    System.out.print("==> ");
+    int pilihan = sc.nextInt();
+    return pilihan;
+}
 
   void PauseScreen(){
     try {
@@ -597,71 +680,128 @@ public class MainFile2 {
   public static void main(String[] args) {
     // Nasabah  R= new Nasabah();
 	MainFile2 B= new MainFile2();
-	String nf1, nf2, nf3, log;
-	nf1 = "D:\\Nasabah_TUBES.dat";
-	nf2 = "D:\\NasabahCopy_TUBES.dat";
-	nf3 = "D:\\Nasabah2_TUBES.dat";
+	Scanner sc = new Scanner(System.in);
+	String nf1, nf2, nf3, log, admin, pass;
+	int pilihLog; boolean logAdmin;
+	nf1 = "C:\\Users\\ghifa\\OneDrive\\Documents\\TUBES ALPRO\\FILE\\Nasabah_TUBES.dat";
+	nf2 = "C:\\Users\\ghifa\\OneDrive\\Documents\\TUBES ALPRO\\COPY\\NasabahCopy_TUBES.dat";
+	nf3 = "C:\\Users\\ghifa\\OneDrive\\Documents\\TUBES ALPRO\\FILE\\Nasabah2_TUBES.dat";
 		
-	// B.SaveToFile(nf1); // tulis ke file
-	// B.SalinArsip(nf1, nf2); // salin file
+//	 B.SaveToFile(nf1); // tulis ke file
+//	 B.SalinArsip(nf1, nf2); // salin file
 	// B.SalinArsipDenganKondisi(nf1, nf2); // salin file dengan kondisi
 	// B.ViewFileX(nf1); // baca file
 	// B.ViewFileX(nf2); // baca file
 	// B.MenambahData(nf1); // sisip data
     // B.ViewFileX(nf1);
-    log = B.Login(nf1);
-    if (!(log.equals(""))) {
-      // B.ViewFileX(nf1); // baca data
-      // B.TarikTunai(nf1, log);
-      // B.ViewFileX(nf1);
-      int menu;
-      do {
-        menu = B.Menu();
-        switch (menu) {
-          case 1:
-            B.CekSaldo(nf1, log);
-            B.PauseScreen();
-            B.ClearScreen();
-            break;
-          case 2:
-            B.SetorTunai(nf1, log);
-            B.PauseScreen();
-            B.ClearScreen();
-            break;
-          case 3:
-            B.TarikTunai(nf1, log);
-            B.PauseScreen();
-            B.ClearScreen();
-            break;
-          case 4:
-            B.CekData(nf1, log);
-            B.PauseScreen();
-            B.ClearScreen();
-            break;
-          case 5:
-            B.MenambahData(nf1);
-            B.PauseScreen();
-            B.ClearScreen();
-            break;
-          case 6:
-            B.MengubahData(nf1, log);
-            B.PauseScreen();
-            B.ClearScreen();
-            break;
-          case 0:
-            System.err.println("Anda telah keluar.");
-            B.ClearScreen();
-            break;
-          default:
-            System.err.println("Invalid Input!");
-            B.PauseScreen();
-            B.ClearScreen();
-            break;
-        } 
-      } while (menu != 0);
-      // B.ViewFileX(nf1);
-    } else {
-      System.err.println("Anda tidak dapat login. Norek/PIN Salah!");
-    }
+	System.out.println("Login sebagai: \n1. Admin \n2. User");
+	pilihLog = sc.nextInt();
+	if (pilihLog == 1) {
+	  System.out.print("Username: "); admin = sc.next();
+	  System.out.print("Password: "); pass = sc.next();
+	  logAdmin = B.LoginAdmin(admin, pass);
+	  if (logAdmin == true) {
+  	  int menu;
+        do {
+          menu = B.MenuAdmin();
+          switch (menu) {
+            case 1:
+              B.ViewFileX(nf1);
+              B.PauseScreen();
+              B.ClearScreen();
+              break;
+            case 2:
+              System.out.print("Masukan norek dari data yang akan dilihat: ");
+              log = sc.next();
+              B.CekData(nf1, log);
+              B.PauseScreen();
+              B.ClearScreen();
+              break;
+            case 3:
+              B.MenambahData(nf1);
+              B.PauseScreen();
+              B.ClearScreen();
+              break;
+            case 4:
+              System.out.print("Masukan norek dari data yang akan diubah: ");
+              log = sc.next();
+              B.MengubahData(nf1, log);
+              B.PauseScreen();
+              B.ClearScreen();
+              break;
+            case 5:
+              System.out.print("Masukan norek dari data yang akan dihapus: ");
+              log = sc.next();
+              B.MenghapusData(nf1, log);
+              B.PauseScreen();
+              B.ClearScreen();
+              break;
+            case 6:
+              System.out.print("Masukan Jenis Salin Arsip: \n1. Salin Semua Data \n2. Salin Data Berdasarkan Kondisi");
+              int input = sc.nextInt();
+              if (input == 1) {
+                B.SalinArsip(nf1,nf2);
+              } else if (input == 2) {
+                B.SalinArsipDenganKondisi(nf1, nf2);
+              } else {
+                System.err.println("Input Salah!");
+              }
+              B.PauseScreen();
+              B.ClearScreen();
+              break;
+            case 0:
+              System.err.println("Anda telah keluar.");
+              B.ClearScreen();
+              break;
+            default:
+              System.err.println("Invalid Input!");
+              B.PauseScreen();
+              B.ClearScreen();
+              break;
+          } 
+        } while (menu != 0);
+	  } else {
+	    System.err.println("Username/Password Salah!");
+	  }
+	} else if (pilihLog == 2) {
+	  log = B.Login(nf1);
+	    if (!(log.equals(""))) {
+	      int menu;
+	      do {
+	        menu = B.Menu();
+	        switch (menu) {
+	          case 1:
+	            B.CekSaldo(nf1, log);
+	            B.PauseScreen();
+	            B.ClearScreen();
+	            break;
+	          case 2:
+	            B.SetorTunai(nf1, log);
+	            B.PauseScreen();
+	            B.ClearScreen();
+	            break;
+	          case 3:
+	            B.TarikTunai(nf1, log);
+	            B.PauseScreen();
+	            B.ClearScreen();
+	            break;
+	          case 0:
+	            System.err.println("Anda telah keluar.");
+	            B.ClearScreen();
+	            break;
+	          default:
+	            System.err.println("Invalid Input!");
+	            B.PauseScreen();
+	            B.ClearScreen();
+	            break;
+	        } 
+	      } while (menu != 0);
+	       B.ViewFileX(nf1);
+	    } else {
+	      System.err.println("Anda tidak dapat login. Norek/PIN Salah!");
+	    }
+	} else {
+	  System.err.println("Input Salah!");
+	}
   }
 }

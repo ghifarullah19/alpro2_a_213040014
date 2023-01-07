@@ -1,12 +1,14 @@
+LARIK & RECORD
+
 Record = sebuah objek yang punya banyak atribut, tipe data setiap atribut boleh berbeda.
 Array = tipe data banyak elemen yang tipe datanya sama dan memiliki indeks agar bisa mengakses elemen tertentu. Tersimpan di memori utama. Bersifat traversal.
 
 Cara pendefinisian:
 Record
-type Mahasiswa = record
-			NRP: string
-			Nama: string
-			IPK: real
+type Mahasiswa : record < NRP: string
+						  Nama: string
+						  IPK: real
+						>
 		end
 	A: Mahasiswa
 Cara mengakses data bertipe record:
@@ -18,49 +20,644 @@ Cara mengakses data bertipe record:
 
 Cara pendefinisian:
 Array
-	const N = 10
-	type LarikInt = array[1...N] of integer
-	A : LarikInt // Boleh, karena LarikInt adalah tipe data
-	B : array[1...N] of string
-	C : B // Tidak bisa, karena B adalah variabel
+Deklarasi: 
+	NamaLarik : array[indeks_awal...indeks_akhir] of tipe
+	
+	a. sebagai peubah
+	A : array[1...100] of integer
+	NamaMhs : array[1...12] array of string
+	NilUjian : array[0...74] array of real
+	P : array[1...100] array of Titik
+	
+	b. sebagai tipe bentukan
+	type LarikInt = array[1...100] of integer { nama tipe bentukan }
+	A : LarikInt { A adalah sebuah peubah larik integer dengan 100 elemen }
+	
+	c. mendefinisikan ukuran larik sebagai sebuah konstanta
+	const Nmaks <- 100 { ukuran maksimum elemen larik }
+	type LarikInt : array[1...100] of integer
+	A : LarikInt { A adalah sebuah peubah larik integer dengan 100 elemen }
+	
 Cara mengakses elemen larik:
-	A[i]; i = indeks
-	output(A[i])
-	output(B[i])
-	A[2] = A[4]
+	A[4] { mengacu elemen keempat dari larik A }
+	NamaMhs[2] { mengacu elemen kedua dari larik NamaMhs }
+	A[i] { mengacu elemen ke-i dari larik A, asalkan i sudah terdefinisi nilainya }
+	NamaMhs[i + 1] { asalkan nilai i sudah terdefinisi }
+	P[k].x { mengacu absis-x pada titik P ke-k }
 
-Cara pendefinisian:
+Contoh manipulasi dan menggunakan elemen larik:
+	write(A[i]) atau output(A[i]) { menampilkan nilai elemen ke-i dari larik A, asalkan i sudah terdefinisi }
+	write(B[i]) atau output(B[i]) { menampilkan nilai elemen ke-i dari larik B, asalkan i sudah terdefinisi }
+	read(A[i]) atau input(A[i]) { membaca nilai elemen ke-i dari larik A, asalkan i sudah terdefinisi }
+	read(B[i]) atau input(B[i]) { membaca nilai elemen ke-i dari larik B, asalkan i sudah terdefinisi }
+	A[4] <- 10 { mengisi elemen keempat larik A dengan nilai 10 }
+	NamaMhs[i] <- 'Achmad' { mengisi elemen ke-i dari larik NamaMhs dengan string 'Achmad' }
+	A[2] <- A[4] { mengisi elemen kedua larik A dengan nilai elemen larik keempat dari larik A }
+	if A[i] < 10 then
+		A[i] <- A[i] + 10
+	else
+		... { instruksi lainnya }
+
+Kapan menggunakan larik? :
+	Larik digunakan bila kita mempunyai sejumlah data yang sejenis dan bertipe sama, dan perlu disimpan sementara
+	data tersebut, untuk selanjutnya data tersebut akan diproses.
+	Sebagai ilustrasi, program HitungRerata_TanpaLarik di bawah memerlukan 6 buah peubah (x1...x6) untuk menyimpan
+	nilai-nilai x yang bertipe sama, integer.
+	
+	PROGRAM HitungRerata_TanpaLarik
+	{ program yang membaca 6 buah data, mencetaknya, dan menghitung rata-ratanya. Tanpa menggunakan larik}
+	DEKLARASI:
+		x1, x2, x3, x4, x5, x6 : integer
+		u : real
+	ALGORITMA:
+		{ baca 6 buah nilai integer, simpan di x1...x6 }
+		read(x1)
+		read(x2)
+		read(x3)
+		read(x4)
+		read(x5)
+		read(x6)
+		
+		{ cetak nilai x1...x6 }
+		write(x1)
+		write(x2)
+		write(x3)
+		write(x4)
+		write(x5)
+		write(x6)
+		
+		{ hitung nilai rata-rata }
+		u <- (x1 + x2 + x3 + x4 + x5 + x6) / 6
+		
+		write(u)
+
+	Dengan menggunakan larik, menyimpan 6 buah nilai x cukup memerlukan hanya satu peubah larik saja (x)
+	yang dalam hal ini x terdiri atas 6 buah elemen.
+	
+	PROGRAM HitungRerata_denganLarik
+	{ program yang membaca 6 buah data, mencetaknya, dan menghitung rata-ratanya. Dengan menggunakan larik }
+	DEKLARASI:
+		x : array[1...6] of integer
+		i : integer
+		jumlah, u : real
+	ALGORITMA:
+		{ baca 6 buah nilai integer, simpan di x1...x6 }
+		for i <- 1 to 6 do
+			read(x[i])
+		endfor
+		
+		{ cetak nilai x1...x6 }
+		for i <- 1 to 6 do
+			write(x[i])
+		endfor
+		
+		{ hitung nilai rata-rata }
+		jumlah <- 0
+		for i <- 1 to 6 do
+			jumlah <- jumlah + x[i]
+		endfor
+		
+		u <- jumlah / 6
+		write(u)
+		
+Ukuran efektif larik:
+	const Nmaks <- 100 { ukuran maksimum larik }
+	type LarikInt : array[1...Nmaks] of integer
+	A : LarikInt
+	N : integer { ukuran larik efektif, mencatat ukuran larik yang digunakan }
+	
+Pemrosesan larik:
+	Misalkan larik A berukuran N elemen (N sudah terdefinisi nilainya), maka skema umum
+	algoritma memproses larik A adalah:
+	ix <- 1 { mulai dari elemen pertama }
+	while i <= N do
+		pemrosesan terhadap A[i]
+		i <- i + 1 { tinjau elemen berikutnya }
+	endwhile
+	{i >= N}
+	
+	atau
+	
+	for i <- 1 to N do
+		pemrosesan terhadap A[i]
+	endfor
+	
+	Contoh pemrosesan larik:
+	1. Menginisialisasi Larik
+		a. menginisialisasi elemen-elemen larik dengan nilai 0
+		procedure InisialisasiLarik(output A : LarikInt, input N : integer)
+		{ menginisialisasi setiap elemen larik A[0...N-1] dengan nol }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+		ALGORITMA:
+			for i <- 1 to N do
+				A[i] <- 0
+			endfor
+			{ seluruh elemen larik A bernilai nol }
+			
+		b. menginisialisasi elemen-elemen larik ke-i dengan nilai i
+		procedure InisialisasiLarik(output A : LarikInt, input N : integer)
+		{ menginisialisasi setiap elemen larik A[1...N] dengan nilai i = 1...N }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+		ALGORITMA:
+			for i <- 1 to N do
+				A[i] <- i
+			endfor
+			{ A[1] = 1, A[2] = 2, ... A[N] = N }
+	
+	2. Mengisi elemen larik dengan pembacaan
+		versi 1:
+		prosedure BacaLarikVersi1(output A : LarikInt, input N : integer)
+		{ mengisi elemen-elemen larik A[1...N] dengan pembacaan }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+		ALGORITMA:
+			for i <- 1 to N do
+				read(A[i])
+			endfor
+		
+		versi 2:
+		procedure BacaLarikVersi2(output A : LarikInt, input N : integer)
+		{ mengisi elemen-elemen larik A[1...N] dengan pembacaan }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+			jawab : char
+		ALGORITMA:
+			i <- 0
+			repeat 
+				i <- i + 1
+				read(A[i])
+				write('Baca data larik lagi? (y/t)')
+				read(jawab)
+			until jawab = 't'
+			N <- i
+			
+			{ seluruh elemen larik A bernilai yang dibaca dari papan ketik }
+			
+		versi 3:
+		procedure BacaLarikVersi3(output A : LarikInt, input N : integer)
+		{ mengisi elemen-elemen larik A[1...N] dengan pembacaan }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+			x : integer
+		ALGORITMA:
+			i <- 0
+			read(x) { baca data pertama kali, mungkin 9999 }
+			while x != 9999 do
+				i <- i + 1
+				A[i] <- x
+				read(x)
+			endwhile
+			{ x = 9999 }
+			N <- i { N adalah nilai i yang terakhir }
+			
+			{ seluruh elemen larik A bernilai yang dibaca dari papan ketik }
+		
+	3. Mencetak elemen larik
+		procedure CetakLarik(input A : LarikInt, input N : integer)
+		{ mencetak elemen-elemen larik A[1...N] }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+		ALGORITMA:
+			for i <- 1 to N do
+				write(A[i])
+			endfor
+			
+			{ seluruh elemen larik A tercetak }
+	
+	4. Menghitung nilai rata-rata
+		procedure HitungRataRata(input A : LarikInt, input N : integer, output u : real)
+		{ menghitung nilai rata-rata larik A[1...N] }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+			jumlah : real { jumlah total seluruh nilai }
+		ALGORITMA:
+			i <- 1 { dimulai dari elemen pertama }
+			jumlah <- 0 { jumlah total nilai mula-mula }
+			for i <- 1 to N do
+				jumlah <- jumlah + A[i]
+			endfor
+			u <- jumlah / N
+			
+			{ u berisi nilai rata-rata seluruh elemen larik A }
+	
+	5. Mencari nilai maksimum larik
+		versi 1:
+		procedure CariMaksVersi1(input A : LarikInt, input N : integer, output maks : integer)
+		{ mencari elemen terbesar dari larik A[1...N] }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+		ALGORITMA:
+			maks <- -9999 { nilai maksimum sementara }
+			for i <- 1 to N do
+				if A[i] > maks then
+					maks <- A[i]
+				endif
+			endfor
+			{ maks berisi elemen larik bernilai terbesar }
+		
+		function MaksLarik(input A : LarikInt, input N : integer) -> integer
+		{ mengembalikan nilai elemen terbesar dari larik A[1...N] }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+			maks : integer
+		ALGORITMA:
+			maks <- -9999 { nilai maksimum sementara }
+			for i <- 1 to N do
+				if A[i] > maks then
+					maks <- A[i]
+				endif
+			endfor
+			return maks
+			
+		versi 2:
+		procedure CariMaksVersi2(input A : LarikInt, input N : integer, output maks : integer)
+		{ mencari elemen terbesar dari larik A[1...N] }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+		ALGORITMA:
+			maks <- A[1] { nilai maksimum sementara }
+			for i <- 2 to N do
+				if A[i] > maks then
+					maks <- A[i]
+				endif
+			endfor
+			{ maks berisi elemen larik bernilai terbesar }
+		
+		function MaksLarik2(input A : LarikInt, input N : integer) -> integer
+		{ mengembalikan nilai elemen terbesar dari larik A[1...N] }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+			maks : integer
+		ALGORITMA:
+			maks <- A[1] { nilai maksimum sementara }
+			for i <- 2 to N do
+				if A[i] > maks then
+					maks <- A[i]
+				endif
+			endfor
+			return maks
+			
+		versi 3:
+		procedure CariMaksVersi3(input A : LarikInt, input N : integer, output idxmaks : integer)
+		{ mencari elemen terbesar dari larik A[1...N] }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+		ALGORITMA:
+			idxmaks <- 1 { nilai maksimum sementara }
+			for i <- 2 to N do
+				if A[i] > A[idxmaks] then
+					idxmaks <- i
+				endif
+			endfor
+			{ idxmaks berisi elemen larik bernilai terbesar }
+		
+		function MaksLarik3(input A : LarikInt, input N : integer) -> integer
+		{ mengembalikan nilai elemen terbesar dari larik A[1...N] }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+			idxmaks : integer
+		ALGORITMA:
+			idxmaks <- 1 { nilai maksimum sementara }
+			for i <- 2 to N do
+				if A[i] > A[idxmaks] then
+					idxmaks <- i
+				endif
+			endfor
+			return idxmaks
+			
+	6. Mencari nilai minimum larik
+		versi 1:
+		procedure CariMinVersi1(input A : LarikInt, input N : integer, output min : integer)
+		{ mencari elemen terkecil di dalam larik A }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+		ALGORITMA:
+			min <- 9999
+			for i <- 1 to N do
+				if A[i] < min then
+					min <- A[i]
+				endif
+			endfor
+			{ min berisi elemen larik yang bernilai terkecil }
+		
+		versi 2:
+		procedure CariMinVersi2(input A : LarikInt, input N : integer, output min : integer)
+		{ mencari elemen terkecil di dalam larik A }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+		ALGORITMA:
+			min <- A[1]
+			for i <- 2 to N do
+				if A[i] < min then
+					min <- A[i]
+				endif
+			endfor
+			{ min berisi elemen larik yang bernilai terkecil }
+			
+		versi 3:
+		procedure CariMinVersi3(input A : LarikInt, input N : integer, output idxmin : integer)
+		{ mencari elemen terkecil di dalam larik A }
+		DEKLARASI:
+			i : integer { pencatat indeks larik }
+		ALGORITMA:
+			idxmin <- 1
+			for i <- 2 to N do
+				if A[i] < A[idxmin] then
+					min <- i
+				endif
+			endfor
+			{ idxmin berisi indeks larik yang bernilai terkecil }
+			
+	7. Pencarian nilai maksimum dan minimum
+		procedure CariMinMaks(input A : LarikInt, input N : integer, output min : integer,
+							  output maks : integer)
+		{ mencari elemen terkecil dan terbesar di dalam larik A }
+		DEKLARASI:
+			i : integer
+		ALGORITMA:
+			min <- A[1]
+			maks <- A[1]
+			for i <- 2 to N do
+				if A[i] < min then
+					min <- A[i]
+				endif
+				if A[i] > maks then
+					maks <- A[i]
+				endif
+			enfor
+			{ min berisi elemen terkecil larik, maks berisi elemen terbesar larik }
+	
+	8. Menyalin larik
+		procedure SalinLarik(input A : LarikInt, input N : integer, output B : LarikInt)
+		{ menyalin larik A ke dalam larik B }
+		DEKLARASI:
+			i : integer
+		ALGORITMA:
+			for i <- 1 to N do
+				B[i] <- A[i]
+			endfor
+			{ B adalah larik yang elemennya sama dengan larik A }
+	
+	9. Menguji kesamaan dua larik
+		function apakahSama(input A, B : LarikInt, input N : integer) -> boolean
+		{ memberikan nilai jika A = B dan false jika tidak sama }
+		DEKLARASI:
+			i : integer
+			sama : boolean
+		ALGORITMA:
+			i <- 1
+			sama <- true { asumsikan sementara kedua larik sama }
+			while (i <= N) and (sama) do
+				if A[i] = B[i] then
+					i <- i + 1 { tinjau elemen berikutnya }
+				else { A[i] != B[i], maka dapat disimpulkan A dan B tidak sama }
+					sama <- false
+				endif
+			endwhile 
+			{ i > N and not sama }
+			
+			return sama
+		
 Array of Record
-type Mahasiswa = record <
-			NRP, Nama: string
-			IPK: real >
-type ArrMahasiswa = array[1...N] of Mahasiswa
+Cara pendefinisian:
+	const Nmaks <- 100
+	type Mahasiswa = record <NIM: integer, { Nomor induk mahasiswa }
+							 NamaMhs: string, { Nama mahasiswa }
+							 IPK: real { 0.00 sampai 4.00 }
+							>
+	type ArrMahasiswa = array[1...N] of Mahasiswa
 	R : Mahasiswa
 	A : ArrMahasiswa
 Cara mengakses array of record
-	A[i] = R
+	A[2] { elemen kedua dari larik Mhs }
+	A[2].NIM { mengacu field NIM dari elemen kedua larik }
+	A[2].IPK { mengacu field IPK dari elemen kedua larik }
+	write(A[i]) { tidak bisa }
+	write(A[i].NIM, A[i].NamaMhs, A[i].IPK) { bisa }
+	A[i] = R { bisa, karena R merupakan variabel dengan tipe data Mahasiwa dan A[i] mengacu untuk satu elemen dalam larik 
+			   A. A[i] = (A[i].NIM, A[i].NamaMhs, A[i].IPK) }
 	R = A[i]
 	A[i].IPK = 3.5
 	R.NRP = A[i].NRP
 	output(A[i].NRP)
 	input(A[i].Nama)
+	
+	Algoritma mengisi larik A dengan pembacaan data:
+	procedure BacaData(input N : integer, output A : ArrMahasiswa)
+	{ membaca data mahasiswa (NIM, nama, IPK) }
+	DEKLARASI:
+		i : integer
+	ALGORITMA:
+		for i <- 1 to N do
+			read(A[i].NIM, A[i].NamaMhs, A[i].IPK)
+		endfor
+		{A sudah berisi data hasil pembacaan}
+	
+	Elemen larik yang merupakan tipe dari larik lain.
+	DEKLARASI:
+		const Nmaks <- 100
+		type MataKuliah : record < KodeMK : string, { kode mata kuliah }
+								   Nilai : char { indeks nilai: A/B/C/D/E }
+								 >
+								 
+		type Mahasiswa : record < NIM : integer,
+								  NamaMhs : string,
+								  MK : array[1...4] of MataKuliah
+								>
+								
+		type ArrMahasiswa : array[1...Nmaks] of Mahasiswa
+		A : ArrMahasiswa
+		
+	Cara mengacu elemen:
+		A[2] { elemen kedua dari larik A }
+		A[2].NIM { mengacu field NIM dari elemen kedua larik }
+		A[2].MK[3].KodeMK { mengacu field KodeMK ketiga dari elemen kedua larik A }
+		A[2].MK[3].Nilai { mengacu field Nilai ketiga dari elemen kedua larik A }
+	
+	Contoh algoritma mengisi larik A melalui pembacaan:
+	procedure BacaData2(input N : integer, output A : ArrMahasiswa)
+	{ membaca data mahasiswa (NIM, nama, daftar mata kuliah, nilai tiap mata kuliah) }
+	DEKLARASI:
+		i, j : integer
+	ALGORITMA:
+		for i <- 1 to N do
+			read(A[i].NIM, A[i].NamaMhs)
+			for j <- 1 to 4 do
+				read(A[i].MK[j].KodeMK, A[i].MK[j].Nilai)
+			endfor
+		endfor
+		{ A sudah berisi data hasil pembacaan }
 
-int MencariNilaiX(int x) {
-	Mencari pada array a elemen yang bernilai X,
+Bekerja dengan dua buah larik
+Dua buah larik atau lebih dapat dioperasikan secara sekaligus. Contohnya program di bawah ini yang menghitung
+nilai indeks mahasiswa (A/B/C/D/E) mahasiswa tersebut dan menyimpan nilai indeks tersebut di dalam larik
+indeks.
+
+Deklarasi nama dan tipe:
+	DEKLARASI:
+		const Nmaks = 200 { jumlah maksimum elemen larik }
+		type LarikUjian : array[1...Nmaks] of real
+		type LarikIndeks : array[1...Nmaks] of char
+		
+Prosedur untuk menghitung nilai indeks:
+	procedure HitungIndeksNilai(input NilUjian : LarikUjian, input N : integer,
+							    output Indeks : LarikIndeks)
+	{ menghitung indeks nilai ujian n orang mahasiswa }
+	DEKLARASI:
+		i : integer
+	ALGORITMA:
+		for i <- 1 to N do
+			if NilUjian[i] >= 80 then
+				Indeks[i] <- 'A'
+			else 
+				if (NilUjian[i] >= 70) and (NilUjian[i] < 80) then
+					 Indeks[i] <- 'B'
+				else 
+					if (NilUjian[i] >= 55) and (NilUjian[i] < 70) then
+						Indeks[i] <- 'C'
+					else
+						if (NilUjian[i] >= 45) and (NilUjian[i] < 55) then
+					 		Indeks[i] <- 'D'
+					 	else
+					 		Indeks[i] <- 'E'
+					 	endif
+					 endif
+				endif
+			endif
+		endfor
+		
+		{ larik Indeks berisi nilai indeks ujian }
+		
+	Selanjuat, mencetak tabel yang menampilkan nilai ujian beserta indeksnya:
+	procedure CetakNilai(input NilUjian : LarikUjian, input Indeks : LarikIndeks, input N : integer)
+	{ mencetak tabel yang berisi nilai ujian dan indeks nilainya. nomor peserta ujian sesuai dengan nomor indeks larik }
+	DEKLARASI:
+		i : integer
+	ALGORITMA:
+		{ cetak header tabel }
+		write('-------------------------------')
+		write('i	Nilai ujian			Indeks')
+		write('-------------------------------')
+		
+		{ cetak nilai ujian dan indeks mahasiswa ke-i }
+		for i <- 1 to N do
+			write(i, '	', NilUjian[i], ' 			', Indeks[i])
+		endfor
+		
+		{ cetak garis penutup tabel }
+		write('-------------------------------')
+		
+String sebagai larik karakter
+Pada dasarnya, string adalah larik karakter. Karena string merupakan larik, maka setiap elemen string
+dapat diakses melalui indeks. Contoh:
+	DEKLARASI:
+		s : string
+	ALGORITMA:
+		s[1] <- 'i'
+		s[2] <- 'n'
+		s[3] <- 'i'
+		s[4] <- ' '
+		s[5] <- 's'
+		s[6] <- 't'
+		s[7] <- 'r'
+		s[8] <- 'i'
+		s[9] <- 'n'
+		s[10] <- 'g'
+
+atau deklarasinya dapat sebagai berikut:
+	DEKLARASI:
+		s : array[1..10] of char
+	ALGORITMA:
+		s[1] <- 'i'
+		s[2] <- 'n'
+		s[3] <- 'i'
+		s[4] <- ' '
+		s[5] <- 's'
+		s[6] <- 't'
+		s[7] <- 'r'
+		s[8] <- 'i'
+		s[9] <- 'n'
+		s[10] <- 'g'
+		
+Manipulasi string (Contoh dalam bahasa C/C++):
+	a. Menghitung panjang string 
+		int Panjang(char s[]) {
+			// mengembalikan panjang string
+			int i;
+			i = 0;
+			while (s[i] != '\0') {
+				i = i + 1;
+			}	
+			return i;
+		}
+		Pada bahasa C/C++, '\0' (null) merupakan sebuah tanda akhir dari sebuah string. 
+		Jadi 'ini string' jika dalam bahasa C/C++ akan menjadi 'ini string\0'.
+	
+	b. Menyalin string
+		void SalinString(char s1[], char s2[]) {
+			/* menyalin string s1 ke s2 */
+			int i;
+			i = 0;
+			while (s1[i] != '\0') {
+				s2[i] = s1[i];
+				i = i + 1;
+			}
+			/* s1[i] = '\0' */
+			
+			s2[i] = '\0'; /* string hasil copy harus diakhir dengan karakter '\0' (null) */
+			
+			/* s2 adalah salinan s1, termasuk '\0' */
+		}
+		
+	c. Membandingkan dua buah string
+		int ApakahSama(char s1[], char s2[]) {
+			/* 1 jika s1 = s2, atau 0 jika s1 <> s2 */
+			int i;
+			int sama;
+			
+			/* cek panjang string menggunakan fungsi strlen() */
+			if (strlen(s1) != strlen(s2)) {
+				/* jika s1 dan s2 tidak sama panjangnya */
+				return 0;
+			} else {
+				/* panjang s1 dan s2 sama, cek kesamaan elemen-elemennya */
+				i = 1;
+				sama = 1; /* asumsikan sementara bahwa s1 dan s2 sama */
+				while (s1[i] != '\0' && sama == 1) {
+					if (s1[i] == s2[i]) {
+						/* tinjau elemen berikutnya */
+						i = i + 1;
+					} else {
+						/* s1[i] != s2[i], maka dapat disimpulkan bahwa s1 != s2 */
+						sama = 0;
+					}
+				}
+				return sama;
+			}
+		}
+		
+Algoritma Pencarian
+
+function MencariX(x : integer) -> integer
+{	Mencari pada array a elemen yang bernilai X,
 	jika ada/ketemu maka yang dikembalikan adalah 
 	indeks di mana nilai X ditemukan, jika tidak 
-	ada maka kembalikan nilai -1.
-}
-Kamus: ix : integer
+	ada maka kembalikan nilai -1. }
+Kamus: 
+	ix : integer
 Algoritma: 
-ix = -1
-for (i = 0 to N-1) do
-	if (A[i] == x)
-	then ix = i
-	endif
-endfor
-return(ix)
+	ix <- -1
+	for (i <- 0 to N-1) do
+		if (A[i] == x)
+			then ix <- i
+		endif
+	endfor
+	return ix
+	{ ix bernilai indeks jika ditemukan, -1 jika tidak ditemukan }
 
+Mengubah nama dari Nasabah yang noreknya = '6' menjadi 'Tulus'
 type:
 	Nasabah = record <
 		norek : string
@@ -70,234 +667,801 @@ type:
 0 : <'1', 'a', 3000>
 1 : <'3', 'c', 5000>
 2 : <'6', 'd', 7000>
-Mengubah nama dari Nasabah yang noreknya = '6' menjadi 'Tulus'
-1. Cari norek = '6' -> dapatkan:-kesimpulan norek ada/tidak: ix 
+
+1. Cari norek = '6' -> dapatkan:
+				-kesimpulan norek ada/tidak: ix 
 				-kalau ketemu (ix != -1)
 				-ubah elemen array pada index ke ix
-prosedur ubahNamaElemen(no : string, namaBaru : string) {
-	mengubah nama dari elemen array tertentu yang norek == no
-	menjadi namaBaru.
-}
+				
+procedure ubahNamaElemen(no : integer, namaBaru : string) 
+{	mengubah nama dari elemen array tertentu yang norek == no
+	menjadi namaBaru. }
 Kamus : 
-	K : integer
-Algoritma : 
-	k = MencariX(no)
-	if (k != -1)
-	then 	//ketemu di index k
-		ubahNama(k, namaBaru)
-	else output('Norek', no, 'tidak ada dalam array')
-	endif
+	no : integer
+	namaBaru : string
+Algoritma :
+	a[no].nama <- namaBaru
 	----
-	void ubahNama(i : integer, name : string) 
-		a[i].nama = name
+Program UbahNama
+{ Program utama untuk mengubah nama dari elemen array tertentu }
+Kamus :
+	procedure ubahNamaElemen(no : integer, namaBaru : string)
+	{ mengubah nama elemen larik }
+	procedure MencariX(no : integer)
+	{ mencari pada array a elemen yang bernilai X }
+	k : integer
+	no : integer
+	namaBaru : string
+	a : array[1...N] of integer
+Algoritma :
+	k <- MencariX(no)
+	if (k != -1)
+		then //ketemu di index k
+		ubahNamaElemen(k, namaBaru)
+	else 
+		output('Norek', no, 'tidak ada dalam array')
+	endif
 -----------
-Pertemuan 6
 
-Record -> kelas
-1. mahasiswa = (npm, nama, ipk)
-2. nasabah = (norek, nama, saldo)
-Array -> kelas = 1. ukuran
-		 2. tipe objek yang digunakan
-3. arrinteger = 
-
-Pencarian
-boolean CariX(input x : integer) {
-mencari pada array A apakah nilai X
-ada pada array, jika ada kembalikan true, jika tidak kembalikan false, 
-pencarian sequential, data tidak terurut}
+function CariX(input A : LarikInt, input N : integer, input x : integer) -> boolean
+{ mencari pada array A apakah nilai X ada pada array, 
+jika ada kembalikan true, jika tidak kembalikan false, 
+pencarian sequential, data tidak terurut }
 Kamus :
 	i : integer
 Algoritma :
-	i = 1
+	i <- 1
 	while (A[i] != x) and (i < N-1) do
-		i++
+		i <- i + 1
 	endwhile
-	if (A[i] == X) 
-	then return tue
-	else return false
+	if (A[i] == x) 
+		then return true
+	else 
+		return false
 	endif
 
 Versi lain
-Kamus : i : integer
+Kamus : 
+	i : integer
 	ketemu : boolean
 Algoritma : 
-	i = 1
-	ketemu = false
+	i <- 1
+	ketemu <- false
 	while (not(ketemu)) and (i < N-1) do
-		if (A[i] == X) 
-		then ketemu = true
-		else i = i + 1
+		if (A[i] == x) 
+			then ketemu <- true
+		else 
+			i <- i + 1
 		endif
 	endwhile
 	return ketemu
 
 -----------
-Pertemuan 7
 Perbaikan algoritma versi Haykal
 Alt 1
-Function SearchX(x : integer) : integer {
+function SearchX(input A : LarikInt, input N : integer, input x : integer) -> integer 
+{ mengembalikan indeks i sedemikian sehingga A[i] = x, atau -1 jika x tidak ada }
 Kamus :
 	i : integer
 Algoritma :
-	i = 0
+	i <- 0
 	while (A[i] != x) and (i < N-1) do
 		i++
 	endwhile
-	if (A[i] == X) 
-	then return i
-	else return -1
+	if (A[i] == x) 
+		then return i
+	else 
+		return -1
 	endif
-}
 
 Alt 2
-Function SearchX(x : integer) : integer {
+function SearchX(input A : LarikInt, input N : integer, input x : integer) -> integer
+{ mengembalikan indeks i sedemikian sehingga A[i] = x, atau -1 jika x tidak ada }
 Kamus :
 	i : integer
+	ketemu : boolean
 Algoritma :
-	i = 0
-	ketemu = false
+	i <- 0
+	ketemu <- false
 	while (ketemu == false) and (i < N) do
-		if (A[i] == X) 
-		then ketemu true
-		else i++
+		if (A[i] == x) 
+			then ketemu true
+		else 
+			i <- i + 1
 		endif
 	endwhile
 	if (ketemu == true)
-	then return i
-	else return -1
+		then return i
+	else 
+		return -1
 	endif
-}
 
 Pencarian Binary Search (Belah Tengah)
-Function BinarySearch(x : integer) : integer 
+function BinarySearch(input A : LarikInt, input N : integer, input x : integer) -> integer 
 { mencari pada array A berukuran N dengan metoda binary search
 Array A terurut membesar. Nilai yang dikembalikan adalah indeks 
 dimana x ditemukan dan -1 jika tidak ditemukan }
 Kamus : 
-		iawal, iakhir, k : integer, ketemu : boolean
+		iawal, iakhir, k : integer 
+		ketemu : boolean
 Algoritma :
-		iawal = 0;, iakhir = N - 1, ketemu = false
+		iawal <- 0 
+		iakhir <- N - 1
+		ketemu <- false
 		while (ketemu == false) and (iawal <= iakhir) do
-			k = (iawal + iakhir) div 2
-			if (A[k] == X) then
-				ketemu = true
+			k <- (iawal + iakhir) div 2
+			if (A[k] == x) 
+				then ketemu <- true
 			else then 
-				if (A[k] > X) then
-					iakhir = k-1 (geser ke kiri)
-				else then
-					iawal = k+1 (geser ke kanan)
+				if (A[k] > x) 
+					then iakhir <- k-1 (geser ke kiri)
+				else 
+					then iawal <- k+1 (geser ke kanan)
 				endif
 			endif
 		endwhile
-		if (ketemu) then
-			return k
-		else then
-			return -1
+		if (ketemu) 
+			then return k
+		else 
+			then return -1
 		endif
 PR:
 	1. tambahkan TarikTunai
 	2. membuat tabel tracer binary search (tulis tangan)
 	3. print out binary search
 	
-Function BinarySearch(x : integer) : integer 
+function BinarySearch(input A : LarikInt, input N : integer, input x : integer) -> integer 
 { mencari pada array A berukuran N dengan metoda binary search
 Array A terurut mengecil. Nilai yang dikembalikan adalah indeks 
 dimana x ditemukan dan -1 jika tidak ditemukan }
 Kamus : 
-		iawal, iakhir, k : integer, ketemu : boolean
+		iawal, iakhir, k : integer 
+		ketemu : boolean
 Algoritma :
-		iawal = 0;, iakhir = N - 1, ketemu = false
+		iawal <- 0 
+		iakhir <- N - 1
+		ketemu <- false
 		while (ketemu == false) and (iawal <= iakhir) do
-			k = (iawal + iakhir) div 2
-			if (A[k] == X) then
-				ketemu = true
+			k <- (iawal + iakhir) div 2
+			if (A[k] == X) 
+				then ketemu <- true
 			else then 
-				if (A[k] < X) then
-					iakhir = k-1 (geser ke kiri)
-				else then
-					iawal = k+1 (geser ke kanan)
+				if (A[k] < X) 
+					then iakhir <- k-1 (geser ke kiri)
+				else 
+					then iawal <- k+1 (geser ke kanan)
 				endif
 			endif
 		endwhile
-		if (ketemu) then
-			return k
-		else then
-			return -1
+		if (ketemu) 
+			then return k
+		else 
+			then return -1
 		endif
 		
-Pertemuan 11
+Matriks
 
-C : array[1...N][1...M] of integer
-A : array[1...N][1...M] of integer
-B : array[1...N][1...M] of integer
+Cara Pendefinisian:
+1. Sebagai nama variabel
+	A : array[1...5, 1...4] of integer
+2. Sebagai tipe bentukan
+	type B : array[1...5, 1...4] of integer
+	C : B { B adalah nama matriks yang bertipe B } 
+3. Didefinisikan dengan ukuran maksimum maktriks sebagi sebuah konstanta
+	DEKLARASI
+		const NbarisMaks <- 20 { jumlah baris maksimum }
+		const NkolomMaks <- 20 { jumlah kolom maksimum }
+		D : array[1...NbarisMaks][1...NkolomMaks] of integer
 
-i : integer
-j : integer
-
-i <- 0
-j <- 0
-
-for i to N
-	for j to M
-		C[i][j] <- A[i][j] + B[i][j]
+Pemrosesan Matriks
+1. per baris - per kolom
+	A = [10	4	45	30]
+		[20	16	18	23]
+		[29	98	19	27]
+		[2	15	26	65]
+		[21	8	13	 7]
+		
+	Untuk setiap baris i = 1, 2, 3, 4, 5 lakukan:
+		untuk setiap kolom j = 1, 2, 3, 4, 5 lakukan:
+			proses A[i, j]
+			
+	Hasil proses:
+		Untuk baris i = 1, elemen yang diproses berturut-turut: 10, 4, 45, 30
+		Untuk baris i = 2, elemen yang diproses berturut-turut: 20, 16, 18, 23
+		Untuk baris i = 3, elemen yang diproses berturut-turut: 29, 98, 19, 17
+		Untuk baris i = 4, elemen yang diproses berturut-turut: 2, 15, 26, 65
+		Untuk baris i = 5, elemen yang diproses berturut-turut: 21, 8, 13, 7
+		
+	Algortima:
+		procedure ProsesMatriks1(input M : MatriksInt, input Nbar, Nkol : integer) 
+		{ pemrosesan elemen matriks M[1...Nbar, 1...Nkol] per baris per kolom }
+		DEKLARASI:
+			i : integer { indeks baris }
+			j : integer { indeks kolom }
+		ALGORITMA:
+			for i <- 1 to Nbar do
+				for j <- 1 to Nkol do
+					Proses(M[i, j])
+				endfor
+			endfor
+			{ setiap elemen matriks M telah diproses }
+			
+		procedure ProsesMatriks2(input M : MatriksInt, input Nbar, Nkol : integer) 
+		{ pemrosesan elemen matriks M[1...Nbar, 1...Nkol] per baris per kolom }
+		DEKLARASI:
+			i : integer { indeks baris }
+			j : integer { indeks kolom }
+		ALGORITMA:
+			i <- 1
+			while i <= Nbar do
+				j <- 1
+				while j <= Nkol do
+					Proses(M[i, j])
+					j = j + 1 { ke kolom berikutnya }
+				endwhile
+				{ j > Nkol }
+				i = i + 1 { ke baris berikutnya }
+			endwhile
+			{ i > Nbar }
+			{ setiap elemen matriks M telah diproses }
+			
+		procedure ProsesMatriks3(input M : MatriksInt, input Nbar, Nkol : integer) 
+		{ pemrosesan elemen matriks M[1...Nbar, 1...Nkol] per baris per kolom }
+		DEKLARASI:
+			i : integer { indeks baris }
+			j : integer { indeks kolom }
+		ALGORITMA:
+			i <- 1
+			repeat
+				j <- 1
+				repeat do
+					Proses(M[i, j])
+					j = j + 1 { ke kolom berikutnya }
+				until j > Nkol
+				i = i + 1 { ke baris berikutnya }
+			until i > Nbar
+			{ setiap elemen matriks M telah diproses }
+			
+2. per kolom - per baris
+	A = [10	4	45	30]
+		[20	16	18	23]
+		[29	98	19	27]
+		[2	15	26	65]
+		[21	8	13	 7]
+		
+	Untuk setiap baris j = 1, 2, 3, 4, 5 lakukan:
+		untuk setiap kolom i = 1, 2, 3, 4, 5 lakukan:
+			proses A[i, j]
+			
+	Hasil proses:
+		Untuk baris j = 1, elemen yang diproses berturut-turut: 10, 20, 29, 2, 21
+		Untuk baris j = 2, elemen yang diproses berturut-turut: 4, 16, 98, 15, 8
+		Untuk baris j = 3, elemen yang diproses berturut-turut: 45, 18, 19, 26, 13
+		Untuk baris j = 4, elemen yang diproses berturut-turut: 30, 23, 27, 65, 7
+		
+	Algortima:
+		procedure ProsesMatriks1(input M : MatriksInt, input Nbar, Nkol : integer) 
+		{ pemrosesan elemen matriks M[1...Nbar, 1...Nkol] per baris per kolom }
+		DEKLARASI:
+			i : integer { indeks baris }
+			j : integer { indeks kolom }
+		ALGORITMA:
+			for j <- 1 to Nkol do
+				for i <- 1 to Nbar do
+					Proses(M[i, j])
+				endfor
+			endfor
+			{ setiap elemen matriks M telah diproses }
+			
+		procedure ProsesMatriks2(input M : MatriksInt, input Nbar, Nkol : integer) 
+		{ pemrosesan elemen matriks M[1...Nbar, 1...Nkol] per baris per kolom }
+		DEKLARASI:
+			i : integer { indeks baris }
+			j : integer { indeks kolom }
+		ALGORITMA:
+			j <- 1
+			while j <= Nkol do
+				i <- 1
+				while i <= Nbar do
+					Proses(M[i, j])
+					i = i + 1 { ke baris berikutnya }
+				endwhile
+				{ i > Nbar }
+				j = j + 1 { ke kolom berikutnya }
+			endwhile
+			{ j > Nkol }
+			{ setiap elemen matriks M telah diproses }
+			
+		procedure ProsesMatriks3(input M : MatriksInt, input Nbar, Nkol : integer) 
+		{ pemrosesan elemen matriks M[1...Nbar, 1...Nkol] per baris per kolom }
+		DEKLARASI:
+			i : integer { indeks baris }
+			j : integer { indeks kolom }
+		ALGORITMA:
+			j <- 1
+			repeat
+				i <- 1
+				repeat do
+					Proses(M[i, j])
+					i = i + 1 { ke baris berikutnya }
+				until i > Nbar
+				j = j + 1 { ke kolom berikutnya }
+			until j > Nkol
+			{ setiap elemen matriks M telah diproses }
+			
+Inisialisasi Matriks
+procedure InitMatriks(output M : MatriksInt, input Nbar, Nkol : integer) 
+{ menginisialisasi seluruh elemen matriks M dengan 0 }
+DEKLARASI:
+	i : integer { indeks baris }
+	j : integer { indeks kolom }
+ALGORITMA:
+	for i <- 1 to Nbar do
+		for j <- 1 to Nkol do
+			M[i, j] <- 0
+		endfor
 	endfor
-endfor
+	{ M[i, j] = 0 untuk i = 1...Nbar, j = 1...Nkol }
+	
+Baca Matriks
+procedure BacaMatriks(output M : MatriksInt, input Nbar, Nkol : integer) 
+{ mengisi seluruh elemen matriks M dari papan ketik }
+DEKLARASI:
+	i : integer { indeks baris }
+	j : integer { indeks kolom }
+ALGORITMA:
+	for i <- 1 to Nbar do
+		for j <- 1 to Nkol do
+			read(M[i, j])
+		endfor
+	endfor
+	{ Seluruh elemen matriks M sudah berisi nilai yang dibaca dari papan ketik }
 
-Pertemuan 12
-Bubble Sort
-{ mengurutkan data array A[1..N] dari besar ke kecil }
-Kamus 
-Algoritma
+Cetak Matriks
+procedure CetakMatriks(output M : MatriksInt, input Nbar, Nkol : integer) 
+{ mencetak seluruh elemen matriks M ke layar }
+DEKLARASI:
+	i : integer { indeks baris }
+	j : integer { indeks kolom }
+ALGORITMA:
+	for i <- 1 to Nbar do
+		for j <- 1 to Nkol do
+			write(M[i, j])
+		endfor
+	endfor
+	{ Seluruh elemen matriks M tercetak ke layar }
+	
+Menjumlahkan Dua Matriks
+procedure JumlahDuaMatriks(input A, B : MatriksInt, input Nbar, Nkol : integer, output C : MatriksInt) 
+{ menjumlahkan matriks A dan B, yaitu A + B = C }
+DEKLARASI:
+	i : integer { indeks baris }
+	j : integer { indeks kolom }
+ALGORITMA:
+	for i <- 1 to Nbar do
+		for j <- 1 to Nkol do
+			C[i, j] <- A[i, j] + B[i, j]
+		endfor
+	endfor
+	{ Matriks C berisi penjumlahan A dan B }
+	
+Mengkalikan Dua Matriks
+procedure KaliDuaMatriks(input A, B : MatriksInt, input Nbar1, Nkol1, Nkol2 : integer, output C : MatriksInt) 
+{ mengkalikan matriks A dan B, yaitu A * B = C }
+DEKLARASI:
+	i : integer { indeks baris }
+	j : integer { indeks kolom }
+	k : integer { indeks kolom kecil }
+	x : integer { peubah untuk memudahkan operasi kali }
+ALGORITMA:
+	for i <- 1 to Nbar1 do
+		for j <- 1 to Nkol2 do
+			x <- 0
+			for k <- 1 to Nkol1 do
+				x = x + A[i, k] * B[k, j]
+			endfor
+		endfor
+	endfor
+	{ Matriks C berisi perkalian A dan B }
 
-for tahap = 1 to N -  1 do
-	for i = 1 to N - tahap do
-		if (A[i] < A[i + 1]) 
-		then { pertukaran }
+Matriks Transpose
+procedure BuatMatriksTranspose(input A: MatriksInt, input Nbar, Nkol : integer, 
+								output At: MatriksInt, input NbarAt, NkolAt : integer ) 
+{ membentuk transpose dari matriks A[1...Nbar, 1...Nkol] }
+DEKLARASI:
+	i : integer { indeks baris }
+	j : integer { indeks kolom }
+ALGORITMA:
+	for i <- 1 to Nbar do
+		for j <- 1 to Nkol do
+			At[j, i] <- A[i, j]
+		endfor
+	endfor
+	NbarAt <- Nkol { jumlah baris matriks transpose }
+	NkolAt <- Nbar { jumlah kolom matriks transpose }
+	{ at adalah transpose dari matriks A sedemikian sehingga At[i, j] = A[i, j] untuk
+	semua i dan j; NbarAt dan NkolAt berisi ukuran matriks hasil transpose (jumlah baris dan jumlah kolom) }
+
+Algoritma Pengurutan
+1. Bubble Sort
+	BubbleSort Menaik
+	procedure BubbleSort1(input/output A : LarikInt, input n : integer)
+	{ mengurutkan data array A[1..N] dari besar ke kecil }
+	DEKLARASI:
+		i : integer { pencacah untuk setiap langkah (pass) }
+		k : integer { pencacah untuk pengapungan pada setiap langkah (pass) }
+		temp : integer { peubah untuk bantu pertukaran }
+	Algoritma
+	for i = 1 to N - 1 do
+		for k = N downto i + 1 do
+			if (A[k] < A[k - 1]) then 
+				{ pertukaran A[k] dengan A[k - 1] }
+				temp <- A[k] 
+				A[k] <- A[k - 1]
+				A[k - 1] <- temp
+			endif
+		endfor
+	endfor
+	
+	Untuk proses pertukaran, dapat diubah menjadi sebuah prosedur Tukar sebagai berikut:
+		procedure Tukar(input/output a, b : integer) 
+		{ menukar nilai a dengan b }
+		DEKLARASI:
+			temp : integer { peubah untuk bantu pertukaran }
+		ALGORITMA:
+			temp <- a
+			a <- b
+			b <- temp
+			{ nilai a dan b sudah ditukar }
+			
+	Maka, dengan pemanfaatan prosedur Tukar diatas, prosedur BubbleSort1 dapat diubah menjadi:
+		procedure BubbleSort1(input/output A : LarikInt, input n : integer)
+		{ mengurutkan data array A[1..N] dari besar ke kecil }
+		DEKLARASI:
+			i : integer { pencacah untuk setiap langkah (pass) }
+			k : integer { pencacah untuk pengapungan pada setiap langkah (pass) }
+			temp : integer { peubah untuk bantu pertukaran }
+		Algoritma
+		for i = 1 to N - 1 do
+			for k = N downto i + 1 do
+				if (A[k] < A[k - 1]) then 
+					{ pertukaran A[k] dengan A[k - 1] }
+					Tukar(A[k], A[k - 1])
+				endif
+			endfor
+		endfor
+		
+	BubbleSort Menurun
+	procedure BubbleSort2(input/output A : LarikInt, input n : integer)
+		{ mengurutkan data array A[1..N] dari besar ke kecil }
+		DEKLARASI:
+			i : integer { pencacah untuk setiap langkah (pass) }
+			k : integer { pencacah untuk pengapungan pada setiap langkah (pass) }
+			temp : integer { peubah untuk bantu pertukaran }
+		Algoritma
+		for i = 1 to N - 1 do
+			for k = N downto i + 1 do
+				if (A[k] > A[k - 1]) then 
+					{ pertukaran A[k] dengan A[k - 1] }
+					Tukar(A[k], A[k - 1])
+				endif
+			endfor
+		endfor
+
+2. Selection (Max/Min) Sort
+	SelectionSort Menaik / MinSort Menaik
+	procedure SelectionSort1(input/output A, input n : integer)
+	{ mengurutkan data array A[1..N] dari kecil ke besar }
+	DEKLARASI:
+		i : integer { pencacah untuk setiap langkah (pass) }
+		j : integer { pencacah untuk mencari nilai minimum }
+		imin : integer { indeks yang berisi nilai minimum sementara }
+		temp : integer { peubah untuk bantu pertukaran }
+	ALGORITMA:
+		for i = 1 to n - 1 do { jumlah pass sebanyak n - 1 kali}
+			{ cari elemen minimum di dalam A }
+			imin = i { elemen pada indeks ke-i diasumsikan sebagai elemen minimum sementara }
+			for j = i + 1 to N do
+				if (A[j] < A[imin]) then 
+					imin = j { catat indeks elemen minimum }
+				endif
+			endfor
+			{ pertukaran elemen minimum, A[imin], dengan A[i]}
 			temp <- A[i] 
-			A[i] <- A[i + 1]
-			A[i + 1] <- temp
-		endif
-	endfor
-endfor
-
-Max/Min Sort
-{ mengurutkan data array A[1..N] dari besar ke kecil }
-Kamus 
-Algoritma
-
-for tahap = 1 to N - 1 do
-	imax = 1
-	for i = 2 to N - tahap do
-		if (A[imax] > A[i]) 
-		then imax = i
-		endif
-	endfor
-	{ pertukaran }
-	temp <- A[imax] 
-	A[imax] <- A[N - tahap - 1]
-	A[N - tahap - 1] <- temp
-endfor
-
-Pertemuan 13
+			A[i] <- A[imin]
+			A[imin] <- temp
+		endfor
+		{ elemen-elemen A sudah terurut menaik sedemikian sehingga A[1] <= A[2]...<= A[n] }
+		
+	SelectionSort Menurun / MinSort Menurun
+	procedure SelectionSort2(input/output A, input n : integer)
+	{ mengurutkan data array A[1..N] dari besar ke kecil }
+	DEKLARASI:
+		i : integer { pencacah untuk setiap langkah (pass) }
+		j : integer { pencacah untuk mencari nilai minimum }
+		imin : integer { indeks yang berisi nilai minimum sementara }
+		temp : integer { peubah untuk bantu pertukaran }
+	ALGORITMA:
+		for i = n downto 2 do { jumlah pass sebanyak n - 1 kali}
+			{ cari elemen minimum di dalam A }
+			imin = 1 { elemen pada indeks ke-i diasumsikan sebagai elemen minimum sementara }
+			for j = 2 to i do
+				if (A[j] < A[imin]) then 
+					imin = j { catat indeks elemen minimum }
+				endif
+			endfor
+			{ pertukaran elemen minimum, A[imin], dengan A[i]}
+			temp <- A[i] 
+			A[i] <- A[imin]
+			A[imin] <- temp
+		endfor
+		{ elemen-elemen A sudah terurut menurun sedemikian sehingga A[1] <= A[2]...<= A[n] }
+		
+	SelectionSort Menaik / MaxSort Menaik
+	procedure SelectionSort3(input/output A, input n : integer)
+	{ mengurutkan data array A[1..N] dari kecil ke besar }
+	DEKLARASI:
+		i : integer { pencacah untuk setiap langkah (pass) }
+		j : integer { pencacah untuk mencari nilai maksimum }
+		imaks : integer { indeks yang berisi nilai maksimum sementara }
+		temp : integer { peubah untuk bantu pertukaran }
+	ALGORITMA:
+		for i = n downto 2 do { jumlah pass sebanyak n - 1 kali}
+			{ cari elemen maksimum di dalam A }
+			imaks = 1 { elemen pada indeks ke-i diasumsikan sebagai elemen maksimum sementara }
+			for j = 2 to i do
+				if (A[j] < A[imaks]) then 
+					imaks = j { catat indeks elemen maksimum }
+				endif
+			endfor
+			{ pertukaran elemen maksimum, A[imaks], dengan A[i]}
+			temp <- A[i] 
+			A[i] <- A[imaks]
+			A[imaks] <- temp
+		endfor
+		{ elemen-elemen A sudah terurut menaik sedemikian sehingga A[1] <= A[2]...<= A[n] }
+		
+	SelectionSort Menurun / MaxSort Menurun
+	procedure SelectionSort4(input/output A, input n : integer)
+	{ mengurutkan data array A[1..N] dari besar ke kecil }
+	DEKLARASI:
+		i : integer { pencacah untuk setiap langkah (pass) }
+		j : integer { pencacah untuk mencari nilai maksimum }
+		imaks : integer { indeks yang berisi nilai maksimum sementara }
+		temp : integer { peubah untuk bantu pertukaran }
+	ALGORITMA:
+		for i = 1 to n - 1 do { jumlah pass sebanyak n - 1 kali}
+			{ cari elemen maksimum di dalam A }
+			imaks = i { elemen pada indeks ke-i diasumsikan sebagai elemen maksimum sementara }
+			for j = i + 1 to N do
+				if (A[j] < A[imaks]) then 
+					imaks = j { catat indeks elemen maksimum }
+				endif
+			endfor
+			{ pertukaran elemen maksimum, A[imaks], dengan A[i]}
+			temp <- A[i] 
+			A[i] <- A[imaks]
+			A[imaks] <- temp
+		endfor
+		{ elemen-elemen A sudah terurut menurun sedemikian sehingga A[1] <= A[2]...<= A[n] }
+		
+3. InsertionSort
+	InsertionSort Menaik
+	procedure InsertionSort1(input/output A: LarikInt, input n : integer)
+	{ mengurutkan elemen-elemen larik A[1...n] sehingga tersusun menaik dengan
+	algoritma pengurutan sisip }
+	DEKLARASI:
+		i : integer { pencacah pass }
+		j : integer { pencacah untuk penelusuran larik }
+		y : integer { peubah bantu agar A[j] tidak ditimpa selama pergeseran }
+		found : boolean { untuk menyatakan posisi penyisipan ditemukan }
+	ALGORITMA:
+		{ elemen A[1] dianggap sudah terurut }
+		for i <- 2 to n do { mulai dari pass 2 sampai pass n}
+			y <- A[i] { cari posisi yang tepat untuk y di dalam A[1...i-1] sambil menggeser }
+			j <- i - 1
+			found <- false
+			
+			while (j >= 1) and (not found) do
+				if (y < A[j] then
+					A[j + 1] <- A[j] { geser }
+					j <- j - 1
+				else 
+					found true
+				endif
+			endwhile
+			{ j < 1 or found }
+			
+			A[j + 1] <- y { sisipkan y pada tempat yang sesuai }
+			
+		endfor
+		
+		{ elemen-elemen A sudah terurut menaik sedemikian sehingga A[1] <= A[2]...<= A[n] }
+		
+	InsertionSort Menurun
+	procedure InsertionSort2(input/output A: LarikInt, input n : integer)
+	{ mengurutkan elemen-elemen larik A[1...n] sehingga tersusun menurun dengan
+	algoritma pengurutan sisip }
+	DEKLARASI:
+		i : integer { pencacah pass }
+		j : integer { pencacah untuk penelusuran larik }
+		y : integer { peubah bantu agar A[j] tidak ditimpa selama pergeseran }
+		found : boolean { untuk menyatakan posisi penyisipan ditemukan }
+	ALGORITMA:
+		{ elemen A[1] dianggap sudah terurut }
+		for i <- 2 to n do { mulai dari pass 2 sampai pass n}
+			y <- A[i] { cari posisi yang tepat untuk y di dalam A[1...i-1] sambil menggeser }
+			j <- i - 1
+			found <- false
+			
+			while (j >= 1) and (not found) do
+				if (y > A[j] then
+					A[j + 1] <- A[j] { geser }
+					j <- j - 1
+				else 
+					found true
+				endif
+			endwhile
+			{ j < 1 or found }
+			
+			A[j + 1] <- y { sisipkan y pada tempat yang sesuai }
+			
+		endfor
+		
+		{ elemen-elemen A sudah terurut menurun sedemikian sehingga A[1] <= A[2]...<= A[n] }
+			
 Arsip (File)
-Struktur penyimpanan data 
-di memori sekunder yang bersifat 
-permanen (bisa diakses kembali
-walau sudah keluar dari program)
+Struktur penyimpanan data di memori sekunder yang bersifat permanen 
+(bisa diakses kembali walau sudah keluar dari program)
 
 Cara deklarasi
-Primitif (fungsi-fungsi dasar untuk
-pengoperasian arsip) -> 4/5 fungsi dasar
-1. Open -> membuka arsip untuk siap dibaca/ditulis
+1. Sebagai peubah:
+	arsip : File of tipe rekaman
+	
+	ArsBil : File of integer
+	ArsKar : File of char
+2. Sebagai tipe bentukan:
+	type nama tipe arsip : File of rekaman { tipe bentukan }
+	arsip : nama tipe arsip
+	
+	type DataMhs : record <NIM : integer, Nama : string, IPK : real >
+	ArsMhs : File of DataMhs
+	type Titik : record <x : real, y : real>
+	ArsTitik : File of Titik
+
+Primitif (fungsi-fungsi dasar untuk pengoperasian arsip) -> 4/5 fungsi dasar
+1. Open
+	procedure Open(input nama arsip : tipe arsip, input kode : integer)
+	{ membuka arsip beruntun untuk siap dibaca/ditulis. Kode = 1 artinya arsip
+	dibuka untuk pembacaan, kode = 2 artinya arsip dibuka untuk perekaman }
+	
+	Open(ArsMhs, 1) { arsip ArsMhs dibuka untuk dibaca }
+	Open(ArsBil, 2) { arsip ArsBil dibuka untuk ditulis }
+	Open(ArsKar, 1) { arsip ArsKar dibuka untuk dibaca }
 2. Fread
+	procedure Fread(input nama arsip : tipe arsip, output rekaman : tipe rekaman)
+	{ membaca rekaman yang sekarang sedang ditunjuk oleh pointer baca dari
+	arsip nama arsip. }
+	
+	Fread(ArsMhs, RekMhs) { RekMhs bertipe DataMhs }
+	Fread(ArsBil, I) { I bertipe integer }
+	Fread(ArsKar, cc) { cc bertipe char }
 3. Fwrite
+	procedure Fread(input nama arsip : tipe arsip, input rekaman : tipe rekaman)
+	{ menulis rekaman ke dalam arsip nama arsip. }
+	
+	Fwrite(ArsMhs, <456091, 'Ida Bagus Adi Sudewa', 2.76>)
+	Fwrite(ArsBil, 765)
+	Fwrite(ArsKar, 'R')
+	
+	{ isi data rekaman }
+	RekMhs.NIM <- 456087
+	RekMhs.Nama <- 'Hikmat Sadikin'
+	RekMhs.IPK <- 2.76
+	Fwrite(ArsMhs, RekMhs) { simpan rekaman tersebut ke arip ArsMhs }
 4. Close
+	procedure Close(input nama arsip : tipe arsip)
+	{ menutup arsip yang telah dibuka }
+	
+	Close(ArsMhs)
+	Close(ArsBil)
+	Close(ArsKar)
 5. EOF (End Of File)
+	function EOF(input nama arsip : tipe arsip) -> boolean
+	{ mengembalikan nilai true jika pointer menunjuk ke tanda akhir arsip; atau false 
+	jika tidak }
+	
+Membuat Arsip Beruntun
+1. ArsBil
+	Program BuatArsipBilanganBulat
+	{ contoh program yang memperagakan cara menyimpan data ke dalam arsip,
+	data dibaca dari papan ketik. }
+	DEKLARASI:
+		ArsBil : File of integer { arsip bilangan bulat }
+		n : integer { banyaknya bilangang bulat }
+		i : integer { pencacahan pengulangan }
+		x : integer { peubah bilangan bulat yang dibaca dari 
+					papan ketik }
+	ALGORITMA:
+		Open(ArsBil, 2) { buka arsip untuk perekaman }
+		read(n)
+		for i <- 1 to n do
+			read(x) { baca data integer dari papan ketik }
+			Fwrite(ArsBil, x) { simpan data integer tersebut ke dalam ArsBil }
+		endfor
+		Close(ArsBil) { tutup ArsBil }
 
-prosedur Open(input nama arsip : tope arsip, input kode : integer) 
-{ Membuka arsip untuk siap dibaca/ditulis. Kode = 1 untuk dibuka, 
-Kode = 2 untuk pembacaan.}
-
-Open(Mhs, 1)
-Open(Bil, 2)
-
+2. ArsMhs
+	Program BuatArsipMahasiswa
+	{ Membuat arsip data mahasiswa. Data mahasiswa dibaca dari papan ketik. }
+	DEKLARASI:
+		type DataMhs : record <NIM : integer, Nama : string, IPK : real>
+		Msiswa : DataMhs { peubah untuk menampung pembacaan data mahasiswa }
+		ArsMhs : File of DataMhs { arsip data mahasiswa }
+	ALGORITMA:
+		Open(ArsMhs, 2) { buka arsip untuk perekaman }
+		read(Msiswa.NIM) { baca NIM mahasiswa pertama, mungkin 9999 }
+		while (Msiswa.NIM != 9999) do
+			read(Msiswa.Nama, Msiswa.IPK) { baca data mahasiswa dari papan ketik }
+			Fwrite(ArsMhs, Msiswa) { simpan data mahasisa tersebut ke dalam ArsMhs }
+			read(Msiswa.NIm)
+		endwhile
+		{ Msiswa.NIM = 9999 }
+		Close(ArsMhs) { tutup ArsMhs }
+		
+Membaca Arsip Beruntun
+1. Skema umum membaca data arsip beruntun
+	Program PembacaanArsip
+	{ skema pembacaan arsip tanpa penanganan kasus kosong }
+	DEKLARASI:
+		type Rekaman : TipeRekaman
+		Arsip : File of Rekaman
+		Rek : Rekaman
+	ALGORITMA:
+		<Inisialisasi>
+		Open(Arsip, 1) { buka arsip untuk dibaca }
+		
+		while not EOF(Arsip) do
+			Fread(Arsip, Rek)
+			Proses Rek
+		endwhile
+		{ EOF(Arsip) }
+		
+		<Terminasi>
+		Close(Arsip)
+2. Membaca data arsip integer dan mencetaknya ke layar
+	Program BacaArsipBilanganBulat
+	{ membaca arsip lalu mencetaknya ke layar }
+	DEKLARASI:
+		ArsBil : File of integer
+		n : integer { banyaknya bilangan bulat }
+		x : integer { peubah rekaman }
+	ALGORITMA:
+		Open(ArsBil, 1) { buka arsip untuk dibaca }
+		while not EOF(ArsBil) do
+			Fread(ArsBil, x) { baca rekaman }
+			write(x) { tulis ke layar }
+		endwhile
+		{ EOF(Arsip) }
+		
+		Close(Arsip) { tutup arsip }
+		
+3. Menghitung jumlah mahasiswa yang mempunyai IPK diatas 2.0
+	procedure HitungKelulusan(input ArsMhs : File of DataMhs, output Ndiatas2 : integer)
+	{ menghitung jumlah mahasiswa yang IPK-nya diatas 2.0. Data mahasiswa dibaca
+	dari arsip ArsMhs. }
+	DEKLARASI:
+		RekMhs : DataMhs
+	ALGORITMA:
+		Ndiatas2 <- 0
+		Open(ArsMhs, 1) { buka arsip untuk pembacaan }
+		while not EOF(ArsMhs) do
+			Fread(ArsMhs, RekMhs) { baca data mahasiswa dari arsip }
+			if RekMhs.IPK > 2.0 then
+				Ndiatas2 <- Ndiatas2 + 1
+			endif
+		endwhile
+		{ EOF(ArsMhs) }
+		Close(ArsMhs) { tutup arsip }
+		
+		{Ndiatas2 berisi jumlah mahasiswa yang IPK-nya diatas 2.0}

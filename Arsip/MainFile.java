@@ -16,7 +16,7 @@ public class MainFile {
     public void SaveToFile() { // menulis ke file
 		Nasabah R= new Nasabah();
 		float Saldoku=0;
-		String No="", Namaku="";
+		String No="", Namaku="", PIN = "";
 		
 		System.out.println("========== SaveToFile ======");
 		ObjectOutputStream out = null;
@@ -40,10 +40,16 @@ public class MainFile {
 				} catch (IOException e) {
 					e.printStackTrace();  
 				} 
+				try {
+					System.out.println("PIN : ");
+					PIN = brInput.readLine();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				try { 
 					System.out.println("Saldo : ");
 					Saldoku=sc.nextFloat();
-					R = new Nasabah(No,Namaku,Saldoku);    
+					R = new Nasabah(No,Namaku,PIN,Saldoku);    
 					out.writeObject(R);// tulis record ke file
 				} catch (IOException e){
 					e.printStackTrace();  
