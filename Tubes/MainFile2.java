@@ -665,7 +665,7 @@ public class MainFile2 {
   int Menu() {
     System.out.println("========== SelamatDatang ======");
     System.out.println("Menu: \n1. Cek Saldo \n2. Setor Tunai \n3. Tarik Tunai "
-         + "\n0. Keluar");
+        + "\n0. Keluar");
     System.out.print("==> ");
     int pilihan = sc.nextInt();
     return pilihan;
@@ -716,9 +716,10 @@ public class MainFile2 {
     nf3 = "D:\\Nasabah2_TUBES.dat";
 
     /* ===== NOTE ===== */
-		// B.SaveToFile(nf1); // Comment atau Hapus baris ini, jika Nasabah_TUBES.dat sudah ada di disk D.
-		/* ===== NOTE ===== */
-    
+    // B.SaveToFile(nf1); // Comment atau Hapus baris ini, jika Nasabah_TUBES.dat
+    // sudah ada di disk D.
+    /* ===== NOTE ===== */
+
     System.out.println("Login sebagai: \n1. Admin \n2. User");
     pilihLog = sc.nextInt();
     if (pilihLog == 1) {

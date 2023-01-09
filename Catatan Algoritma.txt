@@ -1465,3 +1465,149 @@ Membaca Arsip Beruntun
 		Close(ArsMhs) { tutup arsip }
 		
 		{Ndiatas2 berisi jumlah mahasiswa yang IPK-nya diatas 2.0}
+
+4. Mencari NIM tertentu
+	procedure CariNIM(input ArsMhs : File of DataMhs, input NimMhs : integer,
+										output found boolean)
+	{ mencari data mahasiswa yang NIM-nya = NimMhs. }
+	DEKLARASI:
+		RekMhs : DataMhs
+	ALGORITMA:
+		found <- false
+		Open(ArsMhs, 1) { buka arsip untuk pembacaan }
+		while (not EOF(ArsMhs) and (not found)) do
+			Fread(ArsMhs, RekMhs) { baca data mahasiswa dari arsip }
+			if RekMhs.NIM = NimMhs then
+				found <- true
+			endif
+		endwhile
+		{ EOF(ArsMhs) or found }
+		Close(ArsMhs) { tutup arsip }
+		
+5. Menghitung IPK rata-rata
+	procedure HitungRataRata(input ArsMhs : File of DataMhs, output U : real)
+	{ menghitung rata-rata IPK seluruh mahasiswa. }
+	DEKLARASI:
+		RekMhs : DataMhs
+		TotalIPK : real
+		Nmhs : integer { jumlah mahasiswa }
+	ALGORITMA:
+		TotalIPK <- 0
+		Nmhs <- 0
+		Open(ArsMhs, 1) { buka arsip untuk pembacaan }
+		while not EOF(ArsMhs) do
+			Fread(ArsMhs, RekMhs) { baca data mahasiswa dari arsip }
+			Nmhs <- Nmhs + 1
+			TotalIPK <- TotalIPk + RekMhs.IPK
+		endwhile
+		{ EOF(ArsMhs) }
+
+		if Nmhs != 0 then
+			U <- TotalIPK / Nmhs
+		else 
+			U <- -1
+		endif
+
+		Close(ArsMhs) { tutup arsip }
+
+6. Mencari IPK tertinggi
+	procedure CariIPKTertinggi(input ArsMhs : File of DataMhs, output M : DataMhs)
+	{ mencari data mahasiswa yang NIM-nya = NimMhs. }
+	DEKLARASI:
+		RekMhs : DataMhs
+		Maks : real
+	ALGORITMA:
+		Fread(ArsMhs, RekMhs)
+		Maks <- -9999
+		Open(ArsMhs, 1) { buka arsip untuk pembacaan }
+		while not EOF(ArsMhs) do
+			if RekMhs.IPK > Maks then
+				Maks <- RekMhs.IPK
+				M <- RekMhs
+			endif
+			Fread(ArsMhs, RekMhs) { baca data mahasiswa dari arsip }
+		endwhile
+		{ EOF(ArsMhs) }
+		Close(ArsMhs) { tutup arsip }
+
+7. Menghapus Data tertentu
+	procedure HapusNIM(input/output ArsMhs : File of DataMhs, input NimMhs : integer)
+	{ Menghapus data mahasiswa yang NIM-nya = NimMhs. }
+	DEKLARASI:
+		RekMhs : DataMhs
+	ALGORITMA:
+		Open(ArsMhs, 1) { buka arsip untuk pembacaan }
+		while not EOF(ArsMhs) do
+			Fread(ArsMhs, RekMhs) { baca data mahasiswa dari arsip }
+			if RekMhs.NIM != NimMhs then
+				Fwrite(ArsMhs, RekMhs)
+			endif
+		endwhile
+		{ EOF(ArsMhs) }
+		Close(ArsMhs) { tutup arsip }
+
+8. Mengubah Data tertentu
+	procedure HapusNIM(input/output ArsMhs : File of DataMhs, input NimMhs : integer)
+	{ Mengubah data mahasiswa yang NIM-nya = NimMhs. }
+	DEKLARASI:
+		RekMhs : DataMhs
+		IPKbaru : real
+		found : boolean
+		Temp : ArsipMhs
+	ALGORITMA:
+		Open(ArsMhs, 1) { buka arsip untuk pembacaan }
+		Open(Temp, 2)
+		while (not EOF(ArsMhs) and (not found)) do
+			found <- false
+			Fread(ArsMhs, RekMhs) { baca data mahasiswa dari arsip }
+			if RekMhs.NIM == NimMhs then
+				found <- true
+			else 
+				Fwrite(Temp, RekMhs)
+			endif
+		endwhile
+		{ EOF(ArsMhs) or found }
+
+		if found then
+			write(RekMhs.NIM, RekMhs.Nama, RekMhs.IPK)
+			read(IPKbaru)
+			RekMhs.IPK <- IPKbaru
+			Fwrite(Temp, RekMhs)
+
+			while not EOF(ArsMhs) do
+				Fread(ArsMhs, RekMhs)
+				Fwrite(Temp, RekMhs)
+			endwhile
+			{ EOF ArsMhs }
+		else 
+			write(X, ' tidak ditemukan dalam arsip')
+		endif
+
+		{ Salin Arsip }
+		Open(Temp, 1)
+		Open(ArsMhs, 2)
+		while not EOF(Temp) do
+			Fread(Temp, RekMhs)
+			Fwrite(ArsMhs, RekMhs)
+		endwhile
+		{ EOF(Temp) }
+
+		Close(Temp)
+		Close(ArsMhs) { tutup arsip }
+
+9. Menampilkan Data terakhir
+	procedure TampilDataTerakhir(input ArsMhs : File of DataMhs, output M : DataMhs)
+	{ menampilkan data mahasiswa yang terakhir. }
+	DEKLARASI:
+		RekMhs : DataMhs
+	ALGORITMA:
+		Open(ArsMhs, 1) { buka arsip untuk pembacaan }
+		repeat
+			Fread(ArsMhs, RekMhs) { baca data mahasiswa dari arsip }
+			if EOF(ArsMhs) then
+				M <- RekMhs
+				write(M)
+			endif
+		until EOF(ArsMhs)
+		{ EOF(ArsMhs) or found }
+		Close(ArsMhs) { tutup arsip }
