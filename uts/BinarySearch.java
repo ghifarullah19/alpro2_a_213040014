@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class BinarySearch {
   int N = 5;
   int[] a = new int[N];
-  
+
   void inputArray() {
     Scanner sc = new Scanner(System.in);
     for (int i = 0; i < N; i++) {
@@ -13,14 +13,14 @@ public class BinarySearch {
     }
     sc.close();
   }
-  
+
   // jawaban no 3.a
   int binarySearch(int x) {
     int ia = 0;
-    int ik = N-1;
+    int ik = N - 1;
     int it = 0;
     boolean ketemu = false;
-    
+
     while (ia <= ik && ketemu == false) {
       it = (ia + ik) / 2;
       if (a[it] == x) {
@@ -33,7 +33,7 @@ public class BinarySearch {
         }
       }
     }
-    
+
     if (ketemu) {
       return it;
     } else {
@@ -41,11 +41,11 @@ public class BinarySearch {
     }
   }
   // jawaban 3.a
-  
+
   public static void main(String[] args) {
     BinarySearch b = new BinarySearch();
     Scanner sc = new Scanner(System.in);
-    
+
     b.inputArray();
     int x = sc.nextInt();
     int hasil = b.binarySearch(x);

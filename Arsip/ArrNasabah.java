@@ -11,9 +11,13 @@ public class ArrNasabah {
     void InitArray() {
         for (int i = 0; i < N; i++) {
             Nasabah R = new Nasabah();
-            R.norek = ""; R.nama = ""; R.pin = ""; R.saldo = 0;
+            R.norek = "";
+            R.nama = "";
+            R.pin = "";
+            R.saldo = 0;
             a[i] = R;
-            System.out.println("Elemen ke " + i + ": "+ a[i].norek + ", "+ a[i].nama + ", "+ a[i].pin + ", "+ a[i].saldo);
+            System.out.println(
+                    "Elemen ke " + i + ": " + a[i].norek + ", " + a[i].nama + ", " + a[i].pin + ", " + a[i].saldo);
         }
     }
 
@@ -65,63 +69,63 @@ public class ArrNasabah {
         // System.out.println("i keluar dari loop: " + i);
         return ix;
     }
-    
+
     // Pertemuan 6 = Menerapkan Pencarian Sekuensial
     int MencariNOREK1(String x) {
         int i = 0;
-        while (i < N-1 && !(a[i].norek.equals(x))) {
+        while (i < N - 1 && !(a[i].norek.equals(x))) {
             i++;
         }
-    
+
         if (a[i].norek.equals(x)) {
             return i;
         } else {
             return -1;
         }
     }
-    
+
     // Pertemuan 6 = Menerapkan Pencarian Sekuensial
     int MencariNOREK2(String x) {
         int ix = -1;
         int i = 0;
-        while (i < N-1 && !(a[i].norek.equals(x))) {
-          i++;
+        while (i < N - 1 && !(a[i].norek.equals(x))) {
+            i++;
         }
-      
+
         if (a[i].norek.equals(x)) {
-          ix = i;
+            ix = i;
         } else {
-          ix = -1;
+            ix = -1;
         }
         return ix;
     }
-    
+
     // Pertemuan 6 = Menerapkan Pencarian Sekuensial
     boolean MencariNOREK3(String x) {
         int i = 0;
-        while (i < N-1 && !(a[i].norek.equals(x))) {
-          i++;
+        while (i < N - 1 && !(a[i].norek.equals(x))) {
+            i++;
         }
-      
+
         if (a[i].norek.equals(x)) {
-          return true;
+            return true;
         } else {
-          return false;
+            return false;
         }
     }
-    
+
     // Pertemuan 6 = Menerapkan Pencarian Sekuensial
     boolean MencariNOREK4(String x) {
         int i = 0;
         boolean ketemu = false;
-        while (i < N-1 && !(a[i].norek.equals(x))) {
-          i++;
+        while (i < N - 1 && !(a[i].norek.equals(x))) {
+            i++;
         }
-      
+
         if (a[i].norek.equals(x)) {
-          ketemu = true;
+            ketemu = true;
         } else {
-          ketemu = false;
+            ketemu = false;
         }
         return ketemu;
     }
@@ -166,13 +170,13 @@ public class ArrNasabah {
     void TarikTunai(int i) {
         System.out.print("Masukan besar penarikan: ");
         float besar = sc.nextFloat();
-        if (a[i].saldo == 0 ) {
-          System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda Rp.0");
-        } else if (a[i].saldo <= besar){
-          System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda kurang/berada di limit");
+        if (a[i].saldo == 0) {
+            System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda Rp.0");
+        } else if (a[i].saldo <= besar) {
+            System.out.println("Anda tidak dapat melakukan penarikan. Saldo anda kurang/berada di limit");
         } else {
-          a[i].saldo -= besar;
-          System.out.println("Tarik tunai berhasil sebesar: Rp." + besar); 
+            a[i].saldo -= besar;
+            System.out.println("Tarik tunai berhasil sebesar: Rp." + besar);
         }
     }
 
@@ -188,20 +192,20 @@ public class ArrNasabah {
     void CekSaldo(int i) {
         System.out.println("Saldo anda: Rp." + a[i].saldo);
     }
-    
-    //  Pertemuan 7
+
+    // Pertemuan 7
     int Menu() {
-      System.out.println("===Selamat Datang===");
-      System.out.println("Menu: \n1. Cek Saldo \n2. Setor Tunai \n3. Tarik Tunai \n0. Keluar");
-      int pilihan = sc.nextInt();
-      return pilihan;
+        System.out.println("===Selamat Datang===");
+        System.out.println("Menu: \n1. Cek Saldo \n2. Setor Tunai \n3. Tarik Tunai \n0. Keluar");
+        int pilihan = sc.nextInt();
+        return pilihan;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrNasabah A = new ArrNasabah();
-//      Nasabah T = new Nasabah();
-//      Nasabah U = new Nasabah();
+        // Nasabah T = new Nasabah();
+        // Nasabah U = new Nasabah();
 
         // Pertemuan 2
         System.out.println("===Inisialisasi Array===");
@@ -211,88 +215,88 @@ public class ArrNasabah {
         System.out.println("===Tampil Array===");
         A.TampilArray();
 
-//      // Pertemuan 3
-//      System.out.println("===Manipulasi Array===");
-//      System.out.println("1. Mengambil Data");
-//      int inputAmbil = A.InputIndeks();
-//      T = A.getElement(inputAmbil);
-//      T.TulisNasabah();
-//       
-//      System.out.println("2. Mengubah Data");
-//      int inputUbah = A.InputIndeks();
-//      A.setElement(inputUbah);
-//       
-//      System.out.println("\n===Tampil Array (Diperbarui)===");
-//      A.TampilArray();
-//      
-//      // Pertemuan 3
-//      System.out.println("Mencari nilai tertentu dalam array");
-//      System.out.print("Masukan nilai: ");
-//      String x = sc.next();
-//      int k = A.MencariX(x);
-//      if (k != -1) {
-//        System.out.println("Nilai yang dicari yaitu " + x + " ada di indeks " + k);
-//        U = A.getElement(k);
-//        U.TulisNasabah();
-//      } else {
-//        System.out.println("Nilai tidak ditemukan");
-//      }
-//
-//      // Pertemuan 3
-//      System.out.println("Mengubah Nama");
-//      System.out.print("Masukan norek: ");
-//      String norekS = sc.next();
-//      System.out.print("Masukan nama baru: ");
-//      String namaBaru = sc.next();
-//      A.UbahNamaElemen(norekS, namaBaru);
-//      A.TampilArray();
-//
-//      // Pertemuan 7
-//      int y = A.Login();
-//      if (y != -1) {
-//          System.out.println("Anda berhasil login");
-//          int menu = A.Menu();
-//          while (menu != 0) {
-//              switch (menu) {
-//                case 1:
-//                  A.CekSaldo(y);
-//                  break;
-//                case 2:
-//                  A.SetorTunai(y);
-//                  break;
-//                case 3:
-//                  A.TarikTunai(y);
-//                  break;
-//                default:
-//                  System.out.println("Invalid input");
-//                  break;
-//              }
-//              menu = A.Menu();
-//          }
-//            System.out.println("Anda telah keluar");
-//      } else {
-//          System.out.println("Anda gagal login");
-//      }
-//      
-//      // Pertemuan 6
-//      int ix;
-//        String norek;
-//        for (int i = 0; i < 3; i++) {
-//          System.out.print("Masukan nilai: ");
-//          norek = sc.next();
-//          ix = A.MencariNOREK1(norek);
-//          System.out.println(ix);
-//        }
-//        
-//        // Pertemuan 6
-//        boolean ketemu;
-//        for (int i = 0; i < 3; i++) {
-//          System.out.println("Masukan nilai: ");
-//          norek = sc.next();
-//          ketemu = A.MencariNOREK3(norek);
-//          System.out.println(ketemu);
-//        }
-        
+        // // Pertemuan 3
+        // System.out.println("===Manipulasi Array===");
+        // System.out.println("1. Mengambil Data");
+        // int inputAmbil = A.InputIndeks();
+        // T = A.getElement(inputAmbil);
+        // T.TulisNasabah();
+        //
+        // System.out.println("2. Mengubah Data");
+        // int inputUbah = A.InputIndeks();
+        // A.setElement(inputUbah);
+        //
+        // System.out.println("\n===Tampil Array (Diperbarui)===");
+        // A.TampilArray();
+        //
+        // // Pertemuan 3
+        // System.out.println("Mencari nilai tertentu dalam array");
+        // System.out.print("Masukan nilai: ");
+        // String x = sc.next();
+        // int k = A.MencariX(x);
+        // if (k != -1) {
+        // System.out.println("Nilai yang dicari yaitu " + x + " ada di indeks " + k);
+        // U = A.getElement(k);
+        // U.TulisNasabah();
+        // } else {
+        // System.out.println("Nilai tidak ditemukan");
+        // }
+        //
+        // // Pertemuan 3
+        // System.out.println("Mengubah Nama");
+        // System.out.print("Masukan norek: ");
+        // String norekS = sc.next();
+        // System.out.print("Masukan nama baru: ");
+        // String namaBaru = sc.next();
+        // A.UbahNamaElemen(norekS, namaBaru);
+        // A.TampilArray();
+        //
+        // // Pertemuan 7
+        // int y = A.Login();
+        // if (y != -1) {
+        // System.out.println("Anda berhasil login");
+        // int menu = A.Menu();
+        // while (menu != 0) {
+        // switch (menu) {
+        // case 1:
+        // A.CekSaldo(y);
+        // break;
+        // case 2:
+        // A.SetorTunai(y);
+        // break;
+        // case 3:
+        // A.TarikTunai(y);
+        // break;
+        // default:
+        // System.out.println("Invalid input");
+        // break;
+        // }
+        // menu = A.Menu();
+        // }
+        // System.out.println("Anda telah keluar");
+        // } else {
+        // System.out.println("Anda gagal login");
+        // }
+        //
+        // // Pertemuan 6
+        // int ix;
+        // String norek;
+        // for (int i = 0; i < 3; i++) {
+        // System.out.print("Masukan nilai: ");
+        // norek = sc.next();
+        // ix = A.MencariNOREK1(norek);
+        // System.out.println(ix);
+        // }
+        //
+        // // Pertemuan 6
+        // boolean ketemu;
+        // for (int i = 0; i < 3; i++) {
+        // System.out.println("Masukan nilai: ");
+        // norek = sc.next();
+        // ketemu = A.MencariNOREK3(norek);
+        // System.out.println(ketemu);
+        // }
+
         sc.close();
     }
 }

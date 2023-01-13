@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class ArrInt {
   int N = 100;
   int[] a = new int[N];
-  
+
   void inputArray() {
     Scanner sc = new Scanner(System.in);
     for (int i = 0; i < N; i++) {
@@ -13,30 +13,30 @@ public class ArrInt {
     }
     sc.close();
   }
-  
+
   void tampilArray() {
     for (int i = 0; i < N; i++) {
       System.out.println(a[i]);
     }
   }
-  
+
   int sequentialSearch(int x) {
     int i = 0;
-    
+
     while (a[i] != x && i < N) {
       i++;
     }
-    
+
     if (a[i] == x) {
       return i;
     } else {
       return -1;
     }
   }
-  
+
   public static void main(String[] args) {
     ArrInt ArrayInt = new ArrInt();
-    
+
     ArrayInt.inputArray();
     ArrayInt.tampilArray();
 

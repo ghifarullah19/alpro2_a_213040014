@@ -6,19 +6,20 @@ import java.util.Scanner;
 class Nasabah implements Serializable {
 	String norek, nama, pin;
 	float saldo;
-	
-	Nasabah() {}
-	
-	Nasabah(String no, String nm, String pn, float uang) {
-	  norek = no;
-	  nama = nm;
-	  pin = pn;
-	  saldo = uang;
+
+	Nasabah() {
 	}
-	
+
+	Nasabah(String no, String nm, String pn, float uang) {
+		norek = no;
+		nama = nm;
+		pin = pn;
+		saldo = uang;
+	}
+
 	// Pertemuan 2 = Prosedur baca nasabah
 	void BacaNasabah() {
-	  Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Isi Data");
 		System.out.print("norek: ");
 		norek = sc.next();
@@ -32,38 +33,38 @@ class Nasabah implements Serializable {
 	}
 
 	String getNorek() {
-	  return norek;
+		return norek;
 	}
-	
+
 	String getNama() {
-      return nama;
-    }
+		return nama;
+	}
 
 	String getPIN() {
-	  return pin;
+		return pin;
 	}
-	
+
 	float getSaldo() {
-      return saldo;
-    }
+		return saldo;
+	}
 
 	void setNama(String nm) {
-      nama = nm;
-    }
-	
-	void setPIN(String pn) {
-      pin = pn;
-    }
-	
-	void setSaldo(float sd) {
-	  saldo = sd;
+		nama = nm;
 	}
-	
+
+	void setPIN(String pn) {
+		pin = pn;
+	}
+
+	void setSaldo(float sd) {
+		saldo = sd;
+	}
+
 	// Pertemuan 2 = Prosedur tulis nasabah
 	void TulisNasabah() {
 		System.out.println("Data " + ": " + norek + ", " + nama + ", " + saldo);
 	}
-	
+
 	public static void main(String[] args) {
 		Nasabah N = new Nasabah();
 		N.TulisNasabah();

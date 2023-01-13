@@ -3,7 +3,7 @@ package uts;
 public class ArrBarang {
   int N = 20;
   Barang[] a = new Barang[N];
-  
+
   void initArray() {
     for (int i = 0; i < N; i++) {
       Barang b = new Barang();
@@ -14,19 +14,19 @@ public class ArrBarang {
       a[i] = b;
     }
   }
-  
+
   void inputArray() {
     for (int i = 0; i < N; i++) {
       a[i].inputData();
     }
   }
-  
+
   void tampilArray() {
     for (int i = 0; i < N; i++) {
       a[i].tampilData();
     }
   }
-  
+
   public static void main(String[] args) {
     ArrBarang ArrayB = new ArrBarang();
     ArrayB.initArray();

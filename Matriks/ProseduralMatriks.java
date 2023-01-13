@@ -22,7 +22,7 @@ public class ProseduralMatriks {
         }
     }
 
-    static void sum(int [][] sum, int[][] matriksPertama, int[][] matriksKedua, int m, int n) {
+    static void sum(int[][] sum, int[][] matriksPertama, int[][] matriksKedua, int m, int n) {
         for (int b = 0; b < m; b++) {
             for (int k = 0; k < n; k++) {
                 sum[b][k] = matriksPertama[b][k] + matriksKedua[b][k];
