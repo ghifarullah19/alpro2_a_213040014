@@ -1,16 +1,16 @@
-package Tubes;
+package Tubes.Database;
 
 import java.io.Serializable;
 import java.util.Scanner;
 
-class Nasabah implements Serializable {
+public class Nasabah implements Serializable {
 	String norek, nama, pin;
 	float saldo;
 
-	Nasabah() {
+	public Nasabah() {
 	}
 
-	Nasabah(String no, String nm, String pn, float uang) {
+	public Nasabah(String no, String nm, String pn, float uang) {
 		norek = no;
 		nama = nm;
 		pin = pn;
@@ -32,31 +32,35 @@ class Nasabah implements Serializable {
 		sc.close();
 	}
 
-	String getNorek() {
+	public String getNorek() {
 		return norek;
 	}
 
-	String getNama() {
+	public String getNama() {
 		return nama;
 	}
 
-	String getPIN() {
+	public String getPIN() {
 		return pin;
 	}
 
-	float getSaldo() {
+	public float getSaldo() {
 		return saldo;
 	}
 
-	void setNama(String nm) {
+	public void setNorek(String no) {
+		norek = no;
+	}
+
+	public void setNama(String nm) {
 		nama = nm;
 	}
 
-	void setPIN(String pn) {
+	public void setPIN(String pn) {
 		pin = pn;
 	}
 
-	void setSaldo(float sd) {
+	public void setSaldo(float sd) {
 		saldo = sd;
 	}
 

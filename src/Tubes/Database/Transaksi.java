@@ -1,4 +1,4 @@
-package Tubes;
+package Tubes.Database;
 
 public class Transaksi implements java.io.Serializable {
     String norek;
